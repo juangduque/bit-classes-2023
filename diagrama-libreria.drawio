@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-06-09T19:33:52.418Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="Z8iC8ptm6mCD-Cwno_xa" version="21.3.8" type="device">
+<mxfile host="app.diagrams.net" modified="2023-06-10T01:24:47.391Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="9g_YbPdWaI6z9ZQw0q1s" version="21.3.8" type="device">
   <diagram name="Página-1" id="AV6tWnQQNQJE5pCxunog">
     <mxGraphModel dx="2117" dy="1835" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -10,13 +10,13 @@
         <mxCell id="D-RA_q1G5jw-01Rus7TT-2" value="Clientes" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="40" y="320" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="D-RA_q1G5jw-01Rus7TT-3" value="Libreria" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="D-RA_q1G5jw-01Rus7TT-3" value="Librerias" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="550" y="160" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="D-RA_q1G5jw-01Rus7TT-4" value="Empleados" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="550" y="470" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="D-RA_q1G5jw-01Rus7TT-5" value="Editorial" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="D-RA_q1G5jw-01Rus7TT-5" value="Editoriales" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="350" y="-130" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="D-RA_q1G5jw-01Rus7TT-7" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="D-RA_q1G5jw-01Rus7TT-9" target="D-RA_q1G5jw-01Rus7TT-5" edge="1">
@@ -82,7 +82,7 @@
         <mxCell id="D-RA_q1G5jw-01Rus7TT-19" value="1:1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;rotation=0;" parent="1" vertex="1">
           <mxGeometry x="220" y="290" width="60" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="D-RA_q1G5jw-01Rus7TT-20" value="Factura" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="D-RA_q1G5jw-01Rus7TT-20" value="Facturas" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="350" y="320" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="D-RA_q1G5jw-01Rus7TT-21" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="D-RA_q1G5jw-01Rus7TT-13" target="D-RA_q1G5jw-01Rus7TT-20" edge="1">
@@ -91,7 +91,7 @@
             <mxPoint x="490" y="320" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="D-RA_q1G5jw-01Rus7TT-22" value="?" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="D-RA_q1G5jw-01Rus7TT-22" value="Tiene" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="350" y="200" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="D-RA_q1G5jw-01Rus7TT-23" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="D-RA_q1G5jw-01Rus7TT-22" target="D-RA_q1G5jw-01Rus7TT-1" edge="1">
