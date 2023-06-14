@@ -6,4 +6,13 @@ let person = {
   skinTone: 'white'
 };
 
-module.exports = person; // Aqui le especifico que quiero exportar.
+function sayHello(name){
+  console.log("hola ", name);
+};
+
+// Aqui le especifico que quiero exportar.
+// module.exports solo se puede usar 1 vez por archivo.
+module.exports = {
+  sayHello,
+  person
+}
