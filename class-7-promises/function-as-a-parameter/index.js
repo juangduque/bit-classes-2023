@@ -12,6 +12,16 @@ function calculusCircleArea(radio){ // Se declara la función "calculusCircleAre
 
 const input = 5; // Se declara la variable "input" y se inicializa con el valor 5
 
-console.log( calculusCircleArea(input) ); // Se hace un llamado a console.log con la función calcular area del circulo y su parametro que es la variable input
+// console.log( calculusCircleArea(input) ); // Se hace un llamado a console.log con la función calcular area del circulo y su parametro que es la variable input
 
 // Crear una función que reciba unos parámetros para calcular el area de un cuadrado. (L x L)
+
+function returnAName(name){
+  return name;
+}
+
+function sayHi(name){
+  console.log( "Hola", name );
+}
+
+sayHi( returnAName("Juan") )
