@@ -4,10 +4,10 @@ function generateRandomNumber() {
   let randomNumber = '';
 
   while (randomNumber.length < 4) {
-    const randomIndex = Math.floor(Math.random() * digits.length);
-    const randomDigit = digits[randomIndex];
+    const randomIndex = Math.floor(Math.random() * digits.length); // Aqui se genera un número entre 0 y 9 (debido a la longitud del arreglo).
+    const randomDigit = digits[randomIndex]; // Se lee dentro del arreglo la posición especificada por el número generado aleatoriamente en la linea anterior.
 
-    if (!randomNumber.includes(randomDigit)) {
+    if (!randomNumber.includes(randomDigit)) { // Esta validación me asegura que no existan números repetidos
       randomNumber += randomDigit;
     }
   }
@@ -22,7 +22,7 @@ function compareNumbers(secret, numberGuess) {
 
   for (let i = 0; i < secret.length; i++) {
     if (secret[i] === numberGuess[i]) {
-      fijas++;
+      fijas++; 
     } else if (secret.includes(numberGuess[i])) {
       picas++;
     };
@@ -42,9 +42,9 @@ function playGame() {
 
   while (true) {
     const numberGuess = prompt('Ingresa tu número');
-    attempts++;
+    attempts++; // Se suma uno a la variable que controla los intentos
 
-    if (numberGuess.length !== 4 || !/^\d+$/.test(numberGuess)) {
+    if (numberGuess.length !== 4 || !/^\d+$/.test(numberGuess)) { // Esto valida que el número ingresado esté en un formato válido
       console.log('Suposición no válida. Por favor ingrese un número de 4 dígitos.');
       continue;
     };
@@ -55,7 +55,8 @@ function playGame() {
       console.log(`¡Felicitaciones! Adivinaste el número en ${attempts} intentos.`);
       break;
     } else {
-      console.log(`Número ingresado: ${numberGuess}. Picas: ${result.picas}, Fijas: ${result.fijas}, Intento N° ${attempts}`);
+      console.log(`Número ingresado: ${numberGuess}. Picas: ${result.picas}, Fijas: ${result.fijas}, Intento N° ${attempts}`)
+      // console.log("Número ingresado: " + numberGuess + ". Picas: "+ result.picas + ", Fijas: " + result.fijas + ", Intento N°" + attempts); // Esta linea es equivalente a la de arriba (linea 58)
     };
 
     if(attempts === attempsNumber){
