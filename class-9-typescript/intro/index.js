@@ -1,3 +1,4 @@
+// Este archivo se hizo para hablar de los problemas de js
 let name = "pepito";
 
 // El hecho de que un lenguaje es dinamicamente tipado quiere decir que se puede reasignar la variable a otro tipo de dato.
