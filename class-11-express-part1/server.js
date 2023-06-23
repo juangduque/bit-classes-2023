@@ -1,3 +1,4 @@
+// Este archivo es de ejemplo para la construcción de la api, pero la implementación oficial es el index.ts
 const express = require('express');
 const app = express(); // Esta es la creación de la instancia.
 const PORT = 3000;
