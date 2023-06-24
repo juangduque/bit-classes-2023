@@ -4,6 +4,7 @@ npm install express // Instalar express
 npm install -D typescript // Instalar ts en dependencias de desarollo
 npm install -D nodemon // Instalar nodemon
 npm i --save-dev @types/node // Este comando es igual a este: npm install -D @types/node
+npm run [nombre del script] //Esto es para ejecutar un script personalizado
 
 npx tsc --init // Inicializar el proyecto con ts
 npx tsc [nombre del archivo] // Transpila código ts a js
