@@ -1,3 +1,10 @@
+### Git
+git init // Se inicializa el repositorio git
+git status // Mirar el estado de git
+git add [nombre del archivo a añadir] // Agrega cambios al staging area
+git commit -m "[mensaje a poner]" // Se guarda en el repositorio los cambios
+git push origin [nombre de la rama] // empujar los cambios al repositorio remoto
+
 ### Node.js
 npm init -y //Comando para inicializar un proyecto con node
 npm install express // Instalar express
