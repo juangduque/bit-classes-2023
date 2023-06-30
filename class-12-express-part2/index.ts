@@ -11,29 +11,39 @@ app.use(express.json()); //Esto es un middleware. En este caso es necesario para
 
 // Esta petición de tipo get maneja un query para poner un límite a la cantidad de clientes que se devuelven.
 app.get('/customers', (req, res) => {
-  const limit = req.query.limit; // Se obtiene el query de límite y se guarda en una variable.
+  try{
+    const limit = req.query.limit; // Se obtiene el query de límite y se guarda en una variable.
 
-  if(limit){ // Si el query existe, se genera un arreglo de clientes sobre localCustomersDB para devolver solo la cantidad que se pide.
-    localCustomersDB = []; // Se reinicia el arreglo local de clientes.
-    for (let index = 0; index < parseInt(limit as string); index++) { // Se itera sobre el arreglo de clientes original donde el límite superior es el query.
-      if(index < customersDB.length){ // Se valida que el index no sea mayor a la cantidad de clientes que existen.
-        localCustomersDB.push(customersDB[index]); // Se agrega el cliente al arreglo local.
+    if(limit !== undefined){ // Si el query existe, se genera un arreglo de clientes sobre localCustomersDB para devolver solo la cantidad que se pide.
+      localCustomersDB = []; // Se reinicia el arreglo local de clientes.
+      for (let index = 0; index < parseInt(limit as string); index++) { // Se itera sobre el arreglo de clientes original donde el límite superior es el query.
+        if(index < customersDB.length){ // Se valida que el index no sea mayor a la cantidad de clientes que existen.
+          localCustomersDB.push(customersDB[index]); // Se agrega el cliente al arreglo local.
+        }
       }
     }
-  }
 
-  res.status(200).json({ result: localCustomersDB }); // Se devuelve el arreglo de clientes.
+    res.status(200).json({ result: localCustomersDB }); // Se devuelve el arreglo de clientes.
+  }catch(error){
+    console.log(error);
+    res.status(500).json({ message: "Error inesperado"});
+  }
 });
 
 // Esta petición de tipo get obtiene un cliente por su id.
 app.get('/customers/id/:id', (req,res) => {
-  const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
-  const result = localCustomersDB.filter(item => item.id === id); // Se filtra el arreglo de clientes para obtener el cliente con el id solicitado.
-
-  if(result.length === 0){ // Si el arreglo resultante está vacío, significa que no existe un cliente con ese id.
-    res.status(404).json({ message: "El cliente solicitado no existe" }); // Se devuelve un error 404.
-  }else{
-    res.status(200).json({ result: result }); // Si el arreglo resultante tiene el cliente, se devuelve el cliente.
+  try{
+    const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
+    const result = localCustomersDB.filter(item => item.id === id); // Se filtra el arreglo de clientes para obtener el cliente con el id solicitado.
+  
+    if(result.length === 0){ // Si el arreglo resultante está vacío, significa que no existe un cliente con ese id.
+      res.status(404).json({ message: "El cliente solicitado no existe" }); // Se devuelve un error 404.
+    }else{
+      res.status(200).json({ result: result }); // Si el arreglo resultante tiene el cliente, se devuelve el cliente.
+    }
+  }catch(error){
+    console.log(error);
+    res.status(500).json({ message: "Error inesperado"});
   }
 });
 
@@ -51,6 +61,7 @@ app.get('/customers/name/:name', (req,res) => {
 // Esta petición de tipo post crea un nuevo cliente.
 app.post('/customers', function (request, response) {
   const body = request.body; // Se obtiene el body de la petición y se guarda en una variable.
+  console.log(body); // Se imprime el body en consola.
   localCustomersDB.push(body);  // Se agrega el cliente al arreglo local.
   response.status(201).json({ message: 'El cliente se ha guardado' }); // Se devuelve un mensaje de éxito.
 });
@@ -97,6 +108,9 @@ app.patch('/customers/:id', (req, res) =>{
 
   if(key && value){ // Si el key y el value existen, se actualiza el cliente.
     const customerIndex = customersDB.findIndex(item => item.id === id); // Se busca el índice del cliente a actualizar dentro del arreglo.
+
+    console.log(customerIndex);
+
     if(customerIndex === -1){ // Si el índice es -1, significa que no existe un cliente con ese id.
       res.status(404).json({ message: "El cliente no existe" }); // Se devuelve un error 404.
     }else{
