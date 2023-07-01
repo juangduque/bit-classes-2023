@@ -12,10 +12,32 @@ const myPromise = new Promise(function(resolve, reject ){ // Aqui declaro la pro
   }
 });
 
-// Aqui a continuación se ejecuta/llama a la promes
+// Aqui a continuación se ejecuta/llama a la promesas
 myPromise
   .then( (respuestaSatisfactoria) => console.log(respuestaSatisfactoria) )
   .catch( (respuestaDeRechazo) => console.log(respuestaDeRechazo) )
+
+// Esta es otra forma de ejecutar/llamar promesas ,Esta es la sintaxis para declara una función asíncrona con el enfoque arrow function
+const thisFunctionCallAPromise = async () => {
+  try{
+    const response = await myPromise;
+    console.log(response);
+  }catch(error){
+    console.log(error)
+  }
+}
+
+thisFunctionCallAPromise();
+
+// Esta es la sintaxis para declara una función asíncrona con el enfoque clásico
+async function thisFunctionCallAPromise2() {
+  try{
+    const response = await myPromise;
+    console.log(response);
+  }catch(error){
+    console.log(error)
+  }
+}
 
 // Hacer un pequeño programa donde se declare una promesa y se evalue si la edad de el usuario corresponde a alguien mayor o menor de edad, al ejecutar la promesa el programa debe decir si la edad es de alguien mayor o no de edad.
 
