@@ -1,25 +1,20 @@
 import express from 'express';
-import { customersDB, Customer } from '../../customersDB'; 
+import { customersDB, Customer } from '../../customersDB';
+
+import { getCustomers } from '../services/customers.service';
 
 let localCustomersDB = customersDB;
 
 const router = express.Router();
 
 // Esta petición de tipo get maneja un query para poner un límite a la cantidad de clientes que se devuelven.
-router.get('/customers', (req, res) => {
+router.get('/customers', async (req, res) => {
   try{
     const limit = req.query.limit; // Se obtiene el query de límite y se guarda en una variable.
 
-    if(limit !== undefined){ // Si el query existe, se genera un arreglo de clientes sobre localCustomersDB para devolver solo la cantidad que se pide.
-      localCustomersDB = []; // Se reinicia el arreglo local de clientes.
-      for (let index = 0; index < parseInt(limit as string); index++) { // Se itera sobre el arreglo de clientes original donde el límite superior es el query.
-        if(index < customersDB.length){ // Se valida que el index no sea mayor a la cantidad de clientes que existen.
-          localCustomersDB.push(customersDB[index]); // Se agrega el cliente al arreglo local.
-        }
-      }
-    }
+    const response = await getCustomers(limit as string); // Se llama a la función de la capa de servicios que se encarga específicamente de traer los usuarios (getCustomers)
 
-    res.status(200).json({ result: localCustomersDB }); // Se devuelve el arreglo de clientes.
+    res.status(200).json({ result: response }); // Se devuelve el arreglo de clientes.
   }catch(error){
     console.log(error);
     res.status(500).json({ message: "Error inesperado"});
