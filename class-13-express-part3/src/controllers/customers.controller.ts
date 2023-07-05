@@ -1,3 +1,8 @@
+/*
+Esta capa se encarga de gestionar la petición hecha por el cliente, sea de tipo HTTP, o eventos de la aplicación.
+
+Para este caso puntual, se encarga de gestionar las peticiones de tipo GET, POST, PUT, DELETE y PATCH para la entidad de clientes. Y la gestión de los código de estado HTTP.
+*/
 import express from 'express';
 import { customersDB, Customer } from '../../customersDB';
 
@@ -5,7 +10,7 @@ import { getCustomers } from '../services/customers.service';
 
 let localCustomersDB = customersDB;
 
-const router = express.Router();
+const router = express.Router(); // El modulo router de express sirve para gestionar las rutas de la aplicación.
 
 // Esta petición de tipo get maneja un query para poner un límite a la cantidad de clientes que se devuelven.
 router.get('/customers', async (req, res) => {

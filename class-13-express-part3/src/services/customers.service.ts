@@ -1,11 +1,14 @@
-import { customersDB, Customer } from '../../customersDB'; 
+/*
+En la capa de servicio o gestión de lógica de negocio se hacen validaciones, cálculos y en general la gestión de los algoritmos que se requieran para el funcionamiento de la aplicación. 
+*/
+import { customersDB } from '../../customersDB'; 
 
 
 let localCustomersDB = customersDB;
 
 // Esta función se encarga de obtener los clientes.
 const getCustomers = (limit: string) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
 
     if(limit !== undefined){ // Si el query existe, se genera un arreglo de clientes sobre localCustomersDB para devolver solo la cantidad que se pide.
       localCustomersDB = []; // Se reinicia el arreglo local de clientes.
@@ -21,11 +24,7 @@ const getCustomers = (limit: string) => {
 };
 
 
-const getCustomerById = () => {
-  return new Promise((resolve, reject) => {
 
-  });
-};
 
 // const getCustomerByName
 
@@ -37,4 +36,4 @@ const getCustomerById = () => {
 
 // const patchCustomer
 
-export { getCustomers, getCustomerById }
+export { getCustomers };
