@@ -8,7 +8,7 @@ Para esto, se usa el módulo "express" que se instaló previamente. Este módulo
 import express from 'express'; // Se importa el módulo express.
 import { customersDB, Customer } from '../../customersDB'; // Se importa el arreglo de clientes. Especificando el path relativo al archivo.
 
-import { getCustomers } from '../services/customers.service'; // Se importa la función que obtiene los clientes. Especificando el path relativo al archivo, es hacia la capa de servicios (Lógica de negocio).
+import { getCustomers, getCustomerById } from '../services/customers.service'; // Se importa la función que obtiene los clientes. Especificando el path relativo al archivo, es hacia la capa de servicios (Lógica de negocio).
 
 let localCustomersDB = customersDB; 
 
@@ -29,16 +29,12 @@ router.get('/customers', async (req, res) => {
 });
 
 // Esta petición de tipo get obtiene un cliente por su id.
-router.get('/customers/id/:id', (req,res) => {
+router.get('/customers/id/:id', async (req,res) => {
   try{
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
-    const result = localCustomersDB.filter(item => item.id === id); // Se filtra el arreglo de clientes para obtener el cliente con el id solicitado.
-  
-    if(result.length === 0){ // Si el arreglo resultante está vacío, significa que no existe un cliente con ese id.
-      res.status(404).json({ message: "El cliente solicitado no existe" }); // Se devuelve un error 404.
-    }else{
-      res.status(200).json({ result: result }); // Si el arreglo resultante tiene el cliente, se devuelve el cliente.
-    }
+
+    const response = await getCustomerById(id);    
+    res.status(response.code).json(response.message);
   }catch(error){
     console.log(error);
     res.status(500).json({ message: "Error inesperado"});

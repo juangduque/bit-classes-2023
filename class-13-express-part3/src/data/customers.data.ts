@@ -17,4 +17,15 @@ const readCustomers = (limit: string): Promise<Customer[]> => { // Se define el 
   });
 };
 
-export { readCustomers }; // Se exporta la función para que pueda ser usada en otros archivos.
+const readCustomerById = (id: string) =>{
+  return new Promise((resolve, reject) => {
+    try {
+      const result = localCustomersDB.filter(item => item.id === id); // Se filtra el arreglo de clientes para obtener el cliente con el id solicitado.
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export { readCustomers, readCustomerById }; // Se exporta la función para que pueda ser usada en otros archivos.
