@@ -2,13 +2,15 @@
 Esta capa se encarga de gestionar la petición hecha por el cliente, sea de tipo HTTP, o eventos de la aplicación.
 
 Para este caso puntual, se encarga de gestionar las peticiones de tipo GET, POST, PUT, DELETE y PATCH para la entidad de clientes. Y la gestión de los código de estado HTTP.
+
+Para esto, se usa el módulo "express" que se instaló previamente. Este módulo permite gestionar las rutas de la aplicación, y las peticiones que se hacen a cada ruta.
 */
-import express from 'express';
-import { customersDB, Customer } from '../../customersDB';
+import express from 'express'; // Se importa el módulo express.
+import { customersDB, Customer } from '../../customersDB'; // Se importa el arreglo de clientes. Especificando el path relativo al archivo.
 
-import { getCustomers } from '../services/customers.service';
+import { getCustomers } from '../services/customers.service'; // Se importa la función que obtiene los clientes. Especificando el path relativo al archivo, es hacia la capa de servicios (Lógica de negocio).
 
-let localCustomersDB = customersDB;
+let localCustomersDB = customersDB; 
 
 const router = express.Router(); // El modulo router de express sirve para gestionar las rutas de la aplicación.
 
@@ -19,10 +21,10 @@ router.get('/customers', async (req, res) => {
 
     const response = await getCustomers(limit as string); // Se llama a la función de la capa de servicios que se encarga específicamente de traer los usuarios (getCustomers)
 
-    res.status(200).json({ result: response }); // Se devuelve el arreglo de clientes.
-  }catch(error){
-    console.log(error);
-    res.status(500).json({ message: "Error inesperado"});
+    res.status(200).json({ result: response }); // Se devuelve el arreglo de clientes. Se devuelve un objeto con la propiedad result, para que sea más fácil de manejar en el cliente.
+  }catch(error){ // Si hay un error, se devuelve el error.
+    console.log(error); // Se imprime el error en consola. Esto es opcional. La inforción aqui mostrada puede ser sensible y solo se muestra para los desarrolladores.
+    res.status(500).json({ message: "Error inesperado"}); // Se devuelve al cliente un error 500 y un mensaje genérico para no dar información sensible.
   }
 });
 
