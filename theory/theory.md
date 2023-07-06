@@ -273,3 +273,21 @@ La carpeta **src** contiene el código fuente de la aplicación. Los archivos se
 Este enfoque de capas ayuda a separar las responsabilidades y a mantener el código modular y escalable. Además, facilita las pruebas unitarias y la reutilización de código.
 
 Es importante tener en cuenta que la estructura y organización exacta de la aplicación puede variar según las necesidades y preferencias específicas de cada proyecto.
+
+## Flujo de proceso de una petición HTTP en una API REST
+![](images/api-rest-flow.png)
+
+1. **El usuario inicia el flujo al interactuar con la interfaz:** El usuario realiza una acción en la interfaz de gráfica, como hacer clic en un botón para crear, leer, actualizar o eliminar un cliente.
+2. **La aplicación cliente realiza una petición:** La interfaz de usuario envía una solicitud HTTP al servidor, indicando la operación CRUD deseada y proporcionando los datos necesarios para llevar a cabo dicha operación, como por ejemplo los detalles del cliente a crear o actualizar.
+3. **El servidor recibe la petición y la procesa:** El servidor, que ejecuta la aplicación Express, recibe la solicitud HTTP enviada por el cliente.
+4. **La capa controladora recibe la petición:** En el servidor, la capa controladora de la aplicación Express recibe la solicitud HTTP y se encarga de dirigir la solicitud al controlador correspondiente.
+5. **El controlador pasa la petición a la capa de servicio:** El controlador de la aplicación invoca los métodos de la capa de servicio, pasando la solicitud recibida y los datos necesarios para llevar a cabo la operación CRUD.
+6. **La capa de servicio pasa la petición a la capa de datos:** La capa de servicio, responsable de la lógica de negocio, pasa la solicitud a la capa de datos, la cual interactúa con la base de datos.
+7. **Se hace la operación en la base de datos:** La capa de datos ejecuta la operación CRUD correspondiente en la base de datos MongoDB. Por ejemplo, si es una operación de creación, se crea un nuevo documento en la colección de clientes.
+8. **La base de datos retorna el resultado de la operación:** La base de datos MongoDB procesa la operación y retorna el resultado, que puede ser un nuevo documento creado, los datos actualizados de un cliente, o un mensaje de éxito o error según el caso.
+9. **La capa de datos retorna el resultado a la capa de servicio:** La capa de datos recibe el resultado de la operación de la base de datos y lo retorna a la capa de servicio.
+10. **La capa de servicio retorna el resultado a la capa controladora:** La capa de servicio recibe el resultado de la operación. Es aqui donde se hacen validaciones, cálculos y ejecución de algoritmos sobre los datos traidos, genera una respuesta y la retorna a la capa controladora.
+11. **El controlador retorna la respuesta:** El controlador recibe el resultado de la capa de servicio y genera una respuesta HTTP adecuada, que incluye los datos solicitados, mensajes de éxito o error, y los códigos de estado correspondientes.
+12. **El servidor envía la respuesta:** El servidor envía la respuesta HTTP generada por el controlador al cliente que realizó la solicitud.
+13. **La respuesta llega al cliente:** El cliente, que es la interfaz de usuario en el navegador, recibe la respuesta HTTP del servidor y con base en la respuesta actualiza la interfaz para mostrar los datos solicitados o los mensajes de éxito o error.
+14. **El usuario ve en le interfaz el resultado de la petición:** Finalmente, el usuario ve el resultado de la petición en la interfaz de usuario. Esto puede incluir la visualización de los clientes existentes, la confirmación de una operación exitosa, mensajes de error en caso de problemas, o cualquier otra indicación relacionada con la operación CRUD realizada.
