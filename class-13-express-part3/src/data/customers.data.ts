@@ -28,4 +28,48 @@ const readCustomerById = (id: string) =>{
   });
 };
 
-export { readCustomers, readCustomerById }; // Se exporta la función para que pueda ser usada en otros archivos.
+const readCustomerByName = (name: string) =>{
+  return new Promise((resolve, reject)=> {
+    try {
+      const result = localCustomersDB.filter(item => item.name === name); // Se filtra el arreglo de clientes para obtener el cliente con el nombre solicitado.
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const createCustomer = (body: Customer) => {
+  return new Promise((resolve, reject) => {
+    try {
+      localCustomersDB.push(body);  // Se agrega el cliente al arreglo local.
+      resolve('Se ha agregado cliente');
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const updateCustomer = (id: string, body: Customer) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const customerIndex = localCustomersDB.findIndex(item => item.id === id); // Se busca el índice del cliente a actualizar dentro del arreglo.
+      if(customerIndex === -1){ // Si el índice es -1, significa que no existe un cliente con ese id.
+        reject(404);
+      }else{
+        localCustomersDB[customerIndex] = body; // Si el índice es diferente a -1, se actualiza el cliente en el arreglo local.
+        resolve(200);
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export { 
+  readCustomers,
+  readCustomerById,
+  readCustomerByName,
+  createCustomer,
+  updateCustomer
+}; // Se exporta la función para que pueda ser usada en otros archivos.

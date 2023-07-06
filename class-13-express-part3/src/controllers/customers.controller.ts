@@ -8,7 +8,13 @@ Para esto, se usa el módulo "express" que se instaló previamente. Este módulo
 import express from 'express'; // Se importa el módulo express.
 import { customersDB, Customer } from '../../customersDB'; // Se importa el arreglo de clientes. Especificando el path relativo al archivo.
 
-import { getCustomers, getCustomerById } from '../services/customers.service'; // Se importa la función que obtiene los clientes. Especificando el path relativo al archivo, es hacia la capa de servicios (Lógica de negocio).
+import {
+  getCustomers,
+  getCustomerById,
+  getCustomerByName,
+  postCustomer,
+  putCustomer
+} from '../services/customers.service'; // Se importa la función que obtiene los clientes. Especificando el path relativo al archivo, es hacia la capa de servicios (Lógica de negocio).
 
 let localCustomersDB = customersDB; 
 
@@ -42,15 +48,12 @@ router.get('/customers/id/:id', async (req,res) => {
 });
 
 // Esta petición de tipo get obtiene un cliente por su nombre.
-router.get('/customers/name/:name', (req,res) => {
+router.get('/customers/name/:name', async (req,res) => {
   try{
     const name = req.params.name; // Se obtiene el nombre del parámetro de la petición y se guarda en una variable.
-    const result = localCustomersDB.filter(item => item.name === name); // Se filtra el arreglo de clientes para obtener el cliente con el nombre solicitado.
-    if(result.length === 0){ // Si el arreglo resultante está vacío, significa que no existe un cliente con ese nombre.
-      res.status(404).json({ message: "El cliente solicitado no existe" }); // Se devuelve un error 404.
-    }else{
-      res.status(200).json({ result: result }); // Si el arreglo resultante tiene el cliente, se devuelve el cliente.
-    }
+
+    const response = await getCustomerByName(name);
+    res.status(response.code).json(response.message);
   }catch(error){
     console.log(error);
     res.status(500).json({ message: "Error inesperado"});
@@ -58,33 +61,30 @@ router.get('/customers/name/:name', (req,res) => {
 });
 
 // Esta petición de tipo post crea un nuevo cliente.
-router.post('/customers', function (request, response) {
+router.post('/customers', async function(req, res) {
   try{
-    const body = request.body; // Se obtiene el body de la petición y se guarda en una variable.
-    console.log(body); // Se imprime el body en consola.
-    localCustomersDB.push(body);  // Se agrega el cliente al arreglo local.
-    response.status(201).json({ message: 'El cliente se ha guardado' }); // Se devuelve un mensaje de éxito.
+    const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
+
+    const response = await postCustomer(body);
+    res.status(response.code).json(response.message);
   }catch(error){
     console.log(error);
-    response.status(500).json({ message: "Error inesperado"});
+    res.status(500).json({ message: "Error inesperado"});
   }
 });
 
 // Esta petición de tipo put actualiza un cliente, pasándole todo el recurso a editar por el body de la petición.
-router.put('/customers/:id', function (request, response) {
+router.put('/customers/:id', async function (req, res) {
   try{
-    const id = request.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
-    const body = request.body; // Se obtiene el body de la petición y se guarda en una variable.
-    const customerIndex = localCustomersDB.findIndex(item => item.id === id); // Se busca el índice del cliente a actualizar dentro del arreglo.
-    if(customerIndex === -1){ // Si el índice es -1, significa que no existe un cliente con ese id.
-      response.status(404).json({ message: "El cliente no existe" }); // Se devuelve un error 404.
-    }else{
-      localCustomersDB[customerIndex] = body; // Si el índice es diferente a -1, se actualiza el cliente en el arreglo local.
-      response.status(200).json({ message: 'Cliente actualizado correctamente' }); // Se devuelve un mensaje de éxito.
-    }
+    const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
+    const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
+
+    const response = await putCustomer(id, body);
+    res.status(response.code).json(response.message);
   }catch(error){
     console.log(error);
-    response.status(500).json({ message: "Error inesperado"});
+    const customError = error as {code: number, message: string};
+    res.status(customError.code ).json(customError.message );
   }
 });
 
