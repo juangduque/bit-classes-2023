@@ -21,9 +21,7 @@ const router = express.Router(); // El modulo router de express sirve para gesti
 // Esta petición de tipo get maneja un query para poner un límite a la cantidad de clientes que se devuelven.
 router.get('', async (req, res) => {
   try{
-    const limit = req.query.limit; // Se obtiene el query de límite y se guarda en una variable.
-
-    const response = await getCustomers(limit as string); // Se llama a la función de la capa de servicios que se encarga específicamente de traer los usuarios (getCustomers)
+    const response = await getCustomers(); // Se llama a la función de la capa de servicios que se encarga específicamente de traer los usuarios (getCustomers)
 
     res.status(response.code).json({ result: response.result }); // Se devuelve el arreglo de clientes. Se devuelve un objeto con la propiedad result, para que sea más fácil de manejar en el cliente.
   }catch(error){ // Si hay un error, se devuelve el error.

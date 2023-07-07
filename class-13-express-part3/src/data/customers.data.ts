@@ -5,7 +5,7 @@ let localCustomersDB = customersDB; // Se guarda el arreglo de clientes en una v
 
 
 // Se define la función que obtiene los clientes. Puede recibir un límite para la cantidad de clientes que se devuelven.
-const readCustomers = (limit: string): Promise<Customer[]> => { // Se define el tipo de dato que devuelve la función, en este caso una promesa que devuelve un arreglo de clientes.
+const readCustomers = (): Promise<Customer[]> => { // Se define el tipo de dato que devuelve la función, en este caso una promesa que devuelve un arreglo de clientes.
   return new Promise((resolve, reject) => { // Se devuelve una promesa para manejar el asincronismo.
     try {
       resolve(localCustomersDB); // Se devuelve el arreglo de clientes.

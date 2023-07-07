@@ -13,10 +13,10 @@ import {
 // import type { Customer } from '../../customersDB';
 
 // Esta función se encarga de obtener los clientes. Puede recibir un límite para la cantidad de clientes que se devuelven.
-const getCustomers = (limit: string | undefined): Promise<{ code: number, result: string | Customer[] }> => {
+const getCustomers = (): Promise<{ code: number, result: string | Customer[] }> => {
   // Se devuelve una promesa para manejar el asincronismo.
   return new Promise((resolve, reject) => {
-    readCustomers(limit as string) // La función readCustomers recibe el límite como parámetro. Se usa "as" para indicar que el tipo de dato es string.
+    readCustomers() // La función readCustomers recibe el límite como parámetro. Se usa "as" para indicar que el tipo de dato es string.
       .then((response: Customer[]) => { 
 
         const localCustomersDB = response;
