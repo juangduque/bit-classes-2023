@@ -1,16 +1,14 @@
-import { Customer, customersDB } from '../../customersDB'; // Se importa el arreglo de clientes, especificando el path relativo al archivo donde se encuentra el arreglo.
+import { customersDB } from '../../customersDB'; // Se importa el arreglo de clientes, especificando el path relativo al archivo donde se encuentra el arreglo.
+import { Customer } from '../types/customers.types';
 
-
-const localCustomersDB = customersDB; // Se guarda el arreglo de clientes en una variable local.
+let localCustomersDB = customersDB; // Se guarda el arreglo de clientes en una variable local.
 
 
 // Se define la función que obtiene los clientes. Puede recibir un límite para la cantidad de clientes que se devuelven.
 const readCustomers = (limit: string): Promise<Customer[]> => { // Se define el tipo de dato que devuelve la función, en este caso una promesa que devuelve un arreglo de clientes.
   return new Promise((resolve, reject) => { // Se devuelve una promesa para manejar el asincronismo.
     try {
-      setTimeout(() =>{ // Se simula un retardo de 2 segundos.
-        resolve(localCustomersDB); // Se devuelve el arreglo de clientes.
-      }, 2000 );
+      resolve(localCustomersDB); // Se devuelve el arreglo de clientes.
     } catch (error) { // Si hay un error, se devuelve el error.
       reject(error); // Se devuelve el error.
     }
@@ -66,10 +64,27 @@ const updateCustomer = (id: string, body: Customer) => {
   });
 };
 
+const deleteCustomerById = (id: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const result = localCustomersDB.filter(item => item.id !== id); // Se filtra el arreglo de clientes para obtener todos los clientes que no tengan el id solicitado.
+      if(result.length === localCustomersDB.length){ // Si el arreglo resultante tiene la misma cantidad de clientes que el arreglo original, significa que no se eliminó ningún cliente.
+        reject(404);
+      } else{
+        localCustomersDB = result;
+        resolve(200);
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export { 
   readCustomers,
   readCustomerById,
   readCustomerByName,
   createCustomer,
-  updateCustomer
+  updateCustomer,
+  deleteCustomerById
 }; // Se exporta la función para que pueda ser usada en otros archivos.

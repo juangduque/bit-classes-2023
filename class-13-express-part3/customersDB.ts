@@ -1,12 +1,4 @@
-interface Customer {
-  id: string;
-  name: string;
-  cc: string;
-  email: string;
-  birthDate: string;
-  cel: string;
-  address: string;
-}
+import { Customer } from "./src/types/customers.types";
 
 const customersDB: Customer[] = [
   {

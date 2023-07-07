@@ -6,36 +6,35 @@ Para este caso puntual, se encarga de gestionar las peticiones de tipo GET, POST
 Para esto, se usa el módulo "express" que se instaló previamente. Este módulo permite gestionar las rutas de la aplicación, y las peticiones que se hacen a cada ruta.
 */
 import express from 'express'; // Se importa el módulo express.
-import { customersDB, Customer } from '../../customersDB'; // Se importa el arreglo de clientes. Especificando el path relativo al archivo.
 
 import {
   getCustomers,
   getCustomerById,
   getCustomerByName,
   postCustomer,
-  putCustomer
+  putCustomer,
+  deleteCustomer
 } from '../services/customers.service'; // Se importa la función que obtiene los clientes. Especificando el path relativo al archivo, es hacia la capa de servicios (Lógica de negocio).
-
-let localCustomersDB = customersDB; 
 
 const router = express.Router(); // El modulo router de express sirve para gestionar las rutas de la aplicación.
 
 // Esta petición de tipo get maneja un query para poner un límite a la cantidad de clientes que se devuelven.
-router.get('/customers', async (req, res) => {
+router.get('', async (req, res) => {
   try{
     const limit = req.query.limit; // Se obtiene el query de límite y se guarda en una variable.
 
     const response = await getCustomers(limit as string); // Se llama a la función de la capa de servicios que se encarga específicamente de traer los usuarios (getCustomers)
 
-    res.status(200).json({ result: response }); // Se devuelve el arreglo de clientes. Se devuelve un objeto con la propiedad result, para que sea más fácil de manejar en el cliente.
+    res.status(response.code).json({ result: response.result }); // Se devuelve el arreglo de clientes. Se devuelve un objeto con la propiedad result, para que sea más fácil de manejar en el cliente.
   }catch(error){ // Si hay un error, se devuelve el error.
-    console.log(error); // Se imprime el error en consola. Esto es opcional. La inforción aqui mostrada puede ser sensible y solo se muestra para los desarrolladores.
-    res.status(500).json({ message: "Error inesperado"}); // Se devuelve al cliente un error 500 y un mensaje genérico para no dar información sensible.
+    console.log(error);
+    const customError = error as {code: number, message: string};
+    res.status(customError.code ).json(customError.message );
   }
 });
 
 // Esta petición de tipo get obtiene un cliente por su id.
-router.get('/customers/id/:id', async (req,res) => {
+router.get('/id/:id', async (req,res) => {
   try{
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
 
@@ -43,12 +42,13 @@ router.get('/customers/id/:id', async (req,res) => {
     res.status(response.code).json(response.message);
   }catch(error){
     console.log(error);
-    res.status(500).json({ message: "Error inesperado"});
+    const customError = error as {code: number, message: string};
+    res.status(customError.code ).json(customError.message );
   }
 });
 
 // Esta petición de tipo get obtiene un cliente por su nombre.
-router.get('/customers/name/:name', async (req,res) => {
+router.get('/name/:name', async (req,res) => {
   try{
     const name = req.params.name; // Se obtiene el nombre del parámetro de la petición y se guarda en una variable.
 
@@ -56,12 +56,13 @@ router.get('/customers/name/:name', async (req,res) => {
     res.status(response.code).json(response.message);
   }catch(error){
     console.log(error);
-    res.status(500).json({ message: "Error inesperado"});
+    const customError = error as {code: number, message: string};
+    res.status(customError.code ).json(customError.message );
   }
 });
 
 // Esta petición de tipo post crea un nuevo cliente.
-router.post('/customers', async function(req, res) {
+router.post('', async function(req, res) {
   try{
     const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
 
@@ -69,12 +70,13 @@ router.post('/customers', async function(req, res) {
     res.status(response.code).json(response.message);
   }catch(error){
     console.log(error);
-    res.status(500).json({ message: "Error inesperado"});
+    const customError = error as {code: number, message: string};
+    res.status(customError.code ).json(customError.message );
   }
 });
 
 // Esta petición de tipo put actualiza un cliente, pasándole todo el recurso a editar por el body de la petición.
-router.put('/customers/:id', async function (req, res) {
+router.put('/:id', async function (req, res) {
   try{
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
     const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
@@ -89,55 +91,17 @@ router.put('/customers/:id', async function (req, res) {
 });
 
 // Esta petición de tipo delete elimina un cliente con base en el id pasado por parámetro.
-router.delete('/customers/:id', function (request, response) {
+router.delete('/:id', async function (req, res) {
   try{
-    const id = request.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
-    const result = localCustomersDB.filter(item => item.id !== id); // Se filtra el arreglo de clientes para obtener todos los clientes que no tengan el id solicitado.
-    if(result.length === localCustomersDB.length){ // Si el arreglo resultante tiene la misma cantidad de clientes que el arreglo original, significa que no se eliminó ningún cliente.
-      response.status(404).json({ message: "El cliente no existe" }); // Se devuelve un error 404.
-    }else{
-      localCustomersDB = result; // Si el arreglo resultante tiene menos clientes que el arreglo original, significa que se eliminó un cliente y se reasigna el arreglo resultante al arreglo "base de datos".
-      response.status(200).json({ message: "Cliente eliminado correctamente" });
-    }
-  
-    // // Otra forma de hacer la eliminación de un cliente.
-    // const index = result.findIndex(item => item.id === id)
-    // if(index === -1){
-    //   response.status(404).json({ message: "El cliente no existe" });
-    // }else{
-    //   localCustomersDB = result; 
-    //   response.json({ message: "Cliente eliminado correctamente" });
-    // }    
-  }catch(error){
-    console.log(error);
-    response.status(500).json({ message: "Error inesperado"});
-  }
-});
+    const id = req.params.id;
 
-// Esta petición de tipo patch actualiza un cliente, pasándole solo el campo a editar por query. El endpoint luce asi: /customers/1?key=name&value=perengano donde key es el campo a editar y value es el valor a actualizar.
-router.patch('/customers/:id', (req, res) =>{
-  try{
-    const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
-    const key = req.query.key; // Se obtiene el key del query de la petición y se guarda en una variable.
-    const value = req.query.value; // Se obtiene el value del query de la petición y se guarda en una variable.
-  
-    if(key && value){ // Si el key y el value existen, se actualiza el cliente.
-      const customerIndex = customersDB.findIndex(item => item.id === id); // Se busca el índice del cliente a actualizar dentro del arreglo.
-  
-      console.log(customerIndex);
-  
-      if(customerIndex === -1){ // Si el índice es -1, significa que no existe un cliente con ese id.
-        res.status(404).json({ message: "El cliente no existe" }); // Se devuelve un error 404.
-      }else{
-        localCustomersDB[customerIndex][key as keyof Customer] = value as string; // Si el índice es diferente a -1, se actualiza el campo del cliente en el arreglo local.
-        res.status(200).json({ message: 'Cliente actualizado correctamente' });  // Se devuelve un mensaje de éxito.
-      }
-    }else{ // Si el key y el value no existen, se devuelve un error.
-      res.status(400).json({message: "No se han enviado los queries necesarios"}); // Se devuelve un error 400.
-    }
+    const response = await deleteCustomer(id);
+
+    res.status(response.code).json(response.message);
   }catch(error){
     console.log(error);
-    res.status(500).json({ message: "Error inesperado"});
+    const customError = error as {code: number, message: string};
+    res.status(customError.code ).json(customError.message );
   }
 });
 
