@@ -18,6 +18,9 @@ import {
 
 const router = express.Router(); // El modulo router de express sirve para gestionar las rutas de la aplicación.
 
+
+// Se declara la interfaz para el formato de los errores personalizados, para que sea más fácil de manejar. 
+//Tiene 3 propiedades: code, message y errorMessage, donde code es el código de estado HTTP, message es el mensaje que se devuelve al cliente, y errorMessage es el error que se devuelve en la consola.
 interface CustomErrorFormat {
   code: number,
   message: string,
@@ -31,9 +34,9 @@ router.get('', async (req, res) => {
 
     res.status(serviceLayerResponse.code).json({ result: serviceLayerResponse.result }); // Se devuelve el arreglo de clientes. Se devuelve un objeto con la propiedad result, para que sea más fácil de manejar en el cliente.
   }catch(error){ // Si hay un error, se devuelve el error.
-    const customError = error as CustomErrorFormat;
-    console.log(customError.errorMessage);
-    res.status(customError.code ).json(customError.message );
+    const customError = error as CustomErrorFormat; // Se castea el error a la interfaz de errores personalizados.
+    console.log(customError.errorMessage); // Se imprime el error en la consola.
+    res.status(customError.code ).json(customError.message ); // Se devuelve el error al cliente.
   }
 });
 
@@ -42,7 +45,7 @@ router.get('/id/:id', async (req,res) => {
   try{
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
 
-    const serviceLayerResponse = await getCustomerById(id);    
+    const serviceLayerResponse = await getCustomerById(id); // Se llama a la función de la capa de servicios que se encarga específicamente de traer un cliente por su id (getCustomerById)
     res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){
     const customError = error as CustomErrorFormat;
@@ -56,8 +59,8 @@ router.get('/name/:name', async (req,res) => {
   try{
     const name = req.params.name; // Se obtiene el nombre del parámetro de la petición y se guarda en una variable.
 
-    const serviceLayerResponse = await getCustomerByName(name);
-    res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
+    const serviceLayerResponse = await getCustomerByName(name); // Se llama a la función de la capa de servicios que se encarga específicamente de traer un cliente por su nombre (getCustomerByName)
+    res.status(serviceLayerResponse.code).json(serviceLayerResponse.result);
   }catch(error){
     const customError = error as CustomErrorFormat;
     console.log(customError.errorMessage);
@@ -70,7 +73,7 @@ router.post('', async function(req, res) {
   try{
     const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
 
-    const serviceLayerResponse = await postCustomer(body);
+    const serviceLayerResponse = await postCustomer(body); // Se llama a la función de la capa de servicios que se encarga específicamente de crear un cliente (postCustomer)
     res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){
     const customError = error as CustomErrorFormat;
@@ -85,7 +88,7 @@ router.put('/:id', async function (req, res) {
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
     const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
 
-    const serviceLayerResponse = await putCustomer(id, body);
+    const serviceLayerResponse = await putCustomer(id, body); // Se llama a la función de la capa de servicios que se encarga específicamente de actualizar un cliente (putCustomer)
 
     res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){
@@ -100,7 +103,7 @@ router.delete('/:id', async function (req, res) {
   try{
     const id = req.params.id;
 
-    const serviceLayerResponse = await deleteCustomer(id);
+    const serviceLayerResponse = await deleteCustomer(id); // Se llama a la función de la capa de servicios que se encarga específicamente de eliminar un cliente (deleteCustomer)
 
     res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){

@@ -1,84 +1,101 @@
 /* eslint-disable no-async-promise-executor */
-import { customersDB } from '../../customersDB'; // Se importa el arreglo de clientes, especificando el path relativo al archivo donde se encuentra el arreglo.
+
+/*
+  En este archivo se definen las funciones que se encargan de interactuar con la base de datos.}
+  Se usa mongoose para interactuar con la base de datos.
+*/
 import { Customer } from '../types/customers.types';
 import { CustomerSchema } from '../schemas/customers.schema';
 
-let localCustomersDB = customersDB; // Se guarda el arreglo de clientes en una variable local.
-
-
 // Se define la función que obtiene los clientes. Puede recibir un límite para la cantidad de clientes que se devuelven.
 const readCustomers = (): Promise<Customer[]> => { // Se define el tipo de dato que devuelve la función, en este caso una promesa que devuelve un arreglo de clientes.
-  return new Promise((resolve, reject) => { // Se devuelve una promesa para manejar el asincronismo.
+  return new Promise( async (resolve, reject) => { // Se devuelve una promesa para manejar el asincronismo.
     try {
-      resolve(localCustomersDB); // Se devuelve el arreglo de clientes.
+      const mongoResponse = await CustomerSchema.find(); // Usando mongoose se obtienen todos los datos de la colección de clientes.
+      resolve(mongoResponse); // Se devuelve el arreglo de clientes.
     } catch (error) { // Si hay un error, se devuelve el error.
       reject(error); // Se devuelve el error.
     }
   });
 };
 
+// Esta función se encarga de obtener un cliente por su id. Es una función asíncrona que retorna una promesa y recibe como parámetro el id del cliente.
 const readCustomerById = (id: string) =>{
-  return new Promise((resolve, reject) => {
+  return new Promise( async (resolve, reject) => {
     try {
-      const result = localCustomersDB.filter(item => item.id === id); // Se filtra el arreglo de clientes para obtener el cliente con el id solicitado.
-      resolve(result);
+      const mongoResponse = await CustomerSchema.findById(id); // Usando mongoose se obtiene el cliente por su id.
+
+      if(mongoResponse === null){ // Si el cliente no existe, se devuelve un error 404.
+        reject(404); // Se devuelve el código de error.
+      }else{
+        resolve(mongoResponse); // Si el cliente existe, se devuelve el cliente.
+      }
     } catch (error) {
       reject(error);
     }
   });
 };
 
+// Esta función se encarga de obtener un cliente por su nombre. Es una función asíncrona que retorna una promesa y recibe como parámetro el nombre del cliente.
 const readCustomerByName = (name: string) =>{
-  return new Promise((resolve, reject)=> {
+  return new Promise( async (resolve, reject)=> {
     try {
-      const result = localCustomersDB.filter(item => item.name === name); // Se filtra el arreglo de clientes para obtener el cliente con el nombre solicitado.
-      resolve(result);
-    } catch (error) {
-      reject(error);
+      const mongoResult = await CustomerSchema.findOne({ name: name }); // Usando mongoose se obtiene el cliente por su nombre.
+
+      if(mongoResult === null){ // Si el cliente no existe, se devuelve un error 404.
+        reject(404); // Se devuelve el código de error.
+      } else {
+        resolve(mongoResult); // Si el cliente existe, se devuelve el cliente.
+      }
+    } catch (error) { // Si hay un error, se devuelve el error. Sin importar cual sea.
+      reject(error);  // Se devuelve el error.
     }
   });
 };
 
+// Esta función se encarga de crear un cliente. Es una función asíncrona que retorna una promesa y recibe como parámetro el cliente a crear.
 const createCustomer = (body: Customer) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const customer = new CustomerSchema(body);
-      await customer.save();
-      resolve('Se ha agregado cliente');
-    } catch (error) {
-      reject(error);
+      const customer = new CustomerSchema(body); // Se crea una instancia del esquema de mongoose, pasándole el body de la petición.
+      await customer.save(); // Se guarda el cliente en la base de datos.
+      resolve('Se ha agregado cliente'); // Se devuelve un mensaje de éxito.
+    } catch (error) { // Si hay un error, se devuelve el error. Sin importar cual sea.
+      reject(error); // Se devuelve el error.
     }
   });
 };
 
+// Esta función se encarga de actualizar un cliente. Es una función asíncrona que retorna una promesa y recibe como parámetro el id del cliente a actualizar y el cliente con los datos a actualizar.
 const updateCustomer = (id: string, body: Customer) => {
-  return new Promise((resolve, reject) => {
+  return new Promise( async (resolve, reject) => {
     try {
-      const customerIndex = localCustomersDB.findIndex(item => item.id === id); // Se busca el índice del cliente a actualizar dentro del arreglo.
-      if(customerIndex === -1){ // Si el índice es -1, significa que no existe un cliente con ese id.
-        reject(404);
+      const updatedEntity = await CustomerSchema.findByIdAndUpdate( id, body, { new: true} ); // Se actualiza el cliente en la base de datos.
+
+      if(updatedEntity === null){ // Si el cliente no existe, se devuelve un error 404.
+        reject(404); // Se devuelve el código de error.
       }else{
-        localCustomersDB[customerIndex] = body; // Si el índice es diferente a -1, se actualiza el cliente en el arreglo local.
-        resolve(200);
+        resolve(200); // Si el cliente existe, se devuelve un mensaje de éxito.
       }
-    } catch (error) {
-      reject(error);
+    } catch (error) { // Si hay un error, se devuelve el error. Sin importar cual sea.
+      reject(error); // Se devuelve el error.
     }
   });
 };
 
+// Esta función se encarga de eliminar un cliente. Es una función asíncrona que retorna una promesa y recibe como parámetro el id del cliente a eliminar.
 const deleteCustomerById = (id: string) => {
-  return new Promise((resolve, reject) => {
+  return new Promise( async (resolve, reject) => {
     try {
-      const result = localCustomersDB.filter(item => item.id !== id); // Se filtra el arreglo de clientes para obtener todos los clientes que no tengan el id solicitado.
-      if(result.length === localCustomersDB.length){ // Si el arreglo resultante tiene la misma cantidad de clientes que el arreglo original, significa que no se eliminó ningún cliente.
-        reject(404);
-      } else{
-        localCustomersDB = result;
-        resolve(200);
+      const deletedEntity = await CustomerSchema.findByIdAndRemove(id); // Se elimina el cliente de la base de datos.
+
+      if(deletedEntity === null){ // Si el cliente no existe, se devuelve un error 404.
+        reject(404); // Se devuelve el código de error.
+      }else{
+        resolve(200); // Si el cliente existe, se devuelve un mensaje de éxito.
       }
-    } catch (error) {
-      reject(error);
+    } catch (error) { // Si hay un error, se devuelve el error. Sin importar cual sea.
+      reject(error); // Se devuelve el error.
     }
   });
 };
@@ -90,4 +107,4 @@ export {
   createCustomer,
   updateCustomer,
   deleteCustomerById
-}; // Se exporta la función para que pueda ser usada en otros archivos.
+}; // Se exportan las funciones para que puedan ser usada en otros archivos.
