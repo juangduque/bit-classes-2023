@@ -12,71 +12,78 @@ import {
 } from '../data/customers.data';
 // import type { Customer } from '../../customersDB';
 
+interface ServiceLayerResponse {
+  code: number,
+  result?: Customer | Customer[],
+  message?: string;
+  errorMessage?: unknown,
+}
+
 // Esta función se encarga de obtener los clientes. Puede recibir un límite para la cantidad de clientes que se devuelven.
-const getCustomers = (): Promise<{ code: number, result: string | Customer[] }> => {
+const getCustomers = (): Promise<ServiceLayerResponse> => {
   // Se devuelve una promesa para manejar el asincronismo.
   return new Promise((resolve, reject) => {
     readCustomers() // La función readCustomers recibe el límite como parámetro. Se usa "as" para indicar que el tipo de dato es string.
-      .then((response: Customer[]) => { 
+      .then((dataLayerResponse: Customer[]) => { 
 
-        const localCustomersDB = response;
+        const localCustomersDB = dataLayerResponse;
         resolve({ code: 200, result: localCustomersDB}); // Se devuelve el arreglo de clientes.
       })
       .catch((error) => { // Si hay un error, se devuelve el error. El tipo de dato es Error.
-        reject({code: 500, message: "Error inesperado "}); 
+        reject({code: 500, message: "Error inesperado ", errorMessage: error }); 
       });
   });
 };
 
-const getCustomerById = (id: string): Promise<{ code: number, message: string | Customer }> => {
+const getCustomerById = (id: string): Promise<ServiceLayerResponse> => {
   return new Promise((resolve, reject) => {
     readCustomerById(id)
-      .then(response => {
-        if((response as Customer[]).length === 0){
+      .then((dataLayerResponse) => {
+        if((dataLayerResponse as Customer[]).length === 0){
           resolve({ code: 404 , message: 'Cliente no existe' });
         }else{
-          resolve({ code: 200, message: response as Customer });
+          resolve({ code: 200, result: dataLayerResponse as Customer });
         }
       })
       .catch(error => {
-        reject({code: 500, message: "Error inesperado "}); 
+        reject({code: 500, message: "Error inesperado", errorMessage: error});
       });
   });
 };
 
-const getCustomerByName = (name: string): Promise<{ code: number, message: string | Customer }> => {
+const getCustomerByName = (name: string): Promise<ServiceLayerResponse> => {
   return new Promise((resolve, reject) => {
     readCustomerByName(name)
-      .then((response) => {
-        if((response as Customer[]).length === 0){
+      .then((dataLayerResponse) => {
+        if((dataLayerResponse as Customer[]).length === 0){
           resolve({ code: 404 , message: 'Cliente no existe' });
         }else{
-          resolve({ code: 200, message: response as Customer });
+          resolve({ code: 200, result: dataLayerResponse as Customer });
         }
       })
       .catch(error => {
-        reject({code: 500, message: "Error inesperado "}); 
+        reject({code: 500, message: "Error inesperado", errorMessage: error}); 
       });
   });
 };
 
-const postCustomer = (body: Customer): Promise<{ code: number, message: string }> => {
+const postCustomer = (body: Customer): Promise<ServiceLayerResponse> => {
   return new Promise((resolve, reject) => {
     createCustomer(body)
-      .then((response) => {
-        resolve({code: 201, message: response as string });
+      .then((dataLayerResponse) => {
+        resolve({code: 201, message: dataLayerResponse as string });
       })
       .catch(error => {
-        reject({code: 500, message: "Error inesperado "}); 
+        reject({code: 500, message: "Error inesperado", errorMessage: error }); 
       });
   });
 };
 
-const putCustomer = (id: string, body: Customer): Promise<{ code: number, message: string }> => {
+const putCustomer = (id: string, body: Customer): Promise<ServiceLayerResponse> => {
   return new Promise((resolve, reject) => {
     updateCustomer(id, body)
-      .then(response => {
-        if(response === 200)(
+      .then((dataLayerResponse) => {
+        if(dataLayerResponse === 200)(
           resolve({code: 200, message: 'Cliente actualizado exitosamente' as string })
         );
       })
@@ -84,17 +91,17 @@ const putCustomer = (id: string, body: Customer): Promise<{ code: number, messag
         if(error === 404){
           reject({ code: 404, message: 'Cliente no encontrado'});
         }else{
-          reject({ code: 500, message: 'Unexpected error'});
+          reject({ code: 500, message: 'Unexpected error', errorMessage: error});
         }
       });
   });
 };
 
-const deleteCustomer = (id: string): Promise<{ code: number, message: string }>  => {
+const deleteCustomer = (id: string): Promise<ServiceLayerResponse>  => {
   return new Promise((resolve, reject) => {
     deleteCustomerById(id)
-      .then((response) => {
-        if(response === 200){
+      .then((dataLayerResponse) => {
+        if(dataLayerResponse === 200){
           resolve({ code: 200, message: "Cliente borrado"});
         }
       })
@@ -102,7 +109,7 @@ const deleteCustomer = (id: string): Promise<{ code: number, message: string }> 
         if(error === 404){
           reject({code: 404, message: "Cliente no existe"});
         }else{
-          reject({ code: 500, message: "Error inesperado" });
+          reject({ code: 500, message: "Error inesperado", errorMessage: error });
         }
       });
   });

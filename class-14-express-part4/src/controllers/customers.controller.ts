@@ -18,15 +18,21 @@ import {
 
 const router = express.Router(); // El modulo router de express sirve para gestionar las rutas de la aplicación.
 
+interface CustomErrorFormat {
+  code: number,
+  message: string,
+  errorMessage: unknown
+}
+
 // Esta petición de tipo get maneja un query para poner un límite a la cantidad de clientes que se devuelven.
 router.get('', async (req, res) => {
   try{
-    const response = await getCustomers(); // Se llama a la función de la capa de servicios que se encarga específicamente de traer los usuarios (getCustomers)
+    const serviceLayerResponse = await getCustomers(); // Se llama a la función de la capa de servicios que se encarga específicamente de traer los usuarios (getCustomers)
 
-    res.status(response.code).json({ result: response.result }); // Se devuelve el arreglo de clientes. Se devuelve un objeto con la propiedad result, para que sea más fácil de manejar en el cliente.
+    res.status(serviceLayerResponse.code).json({ result: serviceLayerResponse.result }); // Se devuelve el arreglo de clientes. Se devuelve un objeto con la propiedad result, para que sea más fácil de manejar en el cliente.
   }catch(error){ // Si hay un error, se devuelve el error.
-    console.log(error);
-    const customError = error as {code: number, message: string};
+    const customError = error as CustomErrorFormat;
+    console.log(customError.errorMessage);
     res.status(customError.code ).json(customError.message );
   }
 });
@@ -36,11 +42,11 @@ router.get('/id/:id', async (req,res) => {
   try{
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
 
-    const response = await getCustomerById(id);    
-    res.status(response.code).json(response.message);
+    const serviceLayerResponse = await getCustomerById(id);    
+    res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){
-    console.log(error);
-    const customError = error as {code: number, message: string};
+    const customError = error as CustomErrorFormat;
+    console.log(customError.errorMessage);
     res.status(customError.code ).json(customError.message );
   }
 });
@@ -50,11 +56,11 @@ router.get('/name/:name', async (req,res) => {
   try{
     const name = req.params.name; // Se obtiene el nombre del parámetro de la petición y se guarda en una variable.
 
-    const response = await getCustomerByName(name);
-    res.status(response.code).json(response.message);
+    const serviceLayerResponse = await getCustomerByName(name);
+    res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){
-    console.log(error);
-    const customError = error as {code: number, message: string};
+    const customError = error as CustomErrorFormat;
+    console.log(customError.errorMessage);
     res.status(customError.code ).json(customError.message );
   }
 });
@@ -64,11 +70,11 @@ router.post('', async function(req, res) {
   try{
     const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
 
-    const response = await postCustomer(body);
-    res.status(response.code).json(response.message);
+    const serviceLayerResponse = await postCustomer(body);
+    res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){
-    console.log(error);
-    const customError = error as {code: number, message: string};
+    const customError = error as CustomErrorFormat;
+    console.log(customError.errorMessage);
     res.status(customError.code ).json(customError.message );
   }
 });
@@ -79,11 +85,12 @@ router.put('/:id', async function (req, res) {
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
     const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
 
-    const response = await putCustomer(id, body);
-    res.status(response.code).json(response.message);
+    const serviceLayerResponse = await putCustomer(id, body);
+
+    res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){
-    console.log(error);
-    const customError = error as {code: number, message: string};
+    const customError = error as CustomErrorFormat;
+    console.log(customError.errorMessage);
     res.status(customError.code ).json(customError.message );
   }
 });
@@ -93,12 +100,12 @@ router.delete('/:id', async function (req, res) {
   try{
     const id = req.params.id;
 
-    const response = await deleteCustomer(id);
+    const serviceLayerResponse = await deleteCustomer(id);
 
-    res.status(response.code).json(response.message);
+    res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
   }catch(error){
-    console.log(error);
-    const customError = error as {code: number, message: string};
+    const customError = error as CustomErrorFormat;
+    console.log(customError.errorMessage);
     res.status(customError.code ).json(customError.message );
   }
 });
