@@ -274,6 +274,90 @@ Este enfoque de capas ayuda a separar las responsabilidades y a mantener el cód
 
 Es importante tener en cuenta que la estructura y organización exacta de la aplicación puede variar según las necesidades y preferencias específicas de cada proyecto.
 
+## HTTP (Hypertext Transfer Protocol)
+
+HTTP es un protocolo de aplicación utilizado para la comunicación en la World Wide Web (WWW). A continuación se presentan los principales aspectos de HTTP:
+
+### 1. Cliente y servidor
+
+HTTP sigue el modelo cliente-servidor, donde un cliente envía una solicitud al servidor y este responde con una respuesta. El cliente y el servidor se comunican mediante mensajes HTTP.
+
+Más información: 
+- https://developer.mozilla.org/es/docs/Web/HTTP/Overview#cliente-servidor
+- https://es.wikipedia.org/wiki/Cliente-servidor
+
+### 2. Verbos HTTP
+
+Los verbos HTTP indican la acción que se desea realizar en un recurso. Algunos verbos comunes son:
+
+- GET: solicita un recurso específico.
+- POST: envía datos para ser procesados por el servidor.
+- PUT: actualiza un recurso existente.
+- DELETE: elimina un recurso.
+  
+Más información: https://developer.mozilla.org/es/docs/Web/HTTP/Methods
+
+### 3. Códigos de estado
+
+Los códigos de estado de respuesta HTTP indican si se ha completado satisfactoriamente una solicitud HTTP específica. Las respuestas se agrupan en cinco clases:
+
+- Respuestas informativas (100–199),
+- Respuestas satisfactorias (200–299),
+- Redirecciones (300–399),
+- Errores de los clientes (400–499),
+- errores de los servidores (500–599).
+
+Los códigos de estado son números que indican el resultado de una solicitud HTTP. Algunos códigos de estado comunes son:
+
+- 200 OK: la solicitud ha sido exitosa.
+- 201 Created: se ha creado un nuevo recurso.
+- 404 Not Found: el recurso solicitado no ha sido encontrado.
+- 500 Internal Server Error: se produjo un error en el servidor.
+  
+Más información: https://developer.mozilla.org/es/docs/Web/HTTP/Status
+
+### 4. Encabezados
+
+Los encabezados HTTP contienen información adicional sobre la solicitud o respuesta. Algunos encabezados comunes son:
+
+- Content-Type: especifica el tipo de contenido del cuerpo del mensaje.
+- Content-Length: indica la longitud del cuerpo del mensaje.
+- Authorization: proporciona credenciales para acceder a recursos protegidos.
+
+Más información: https://developer.mozilla.org/es/docs/Web/HTTP/Headers
+
+### 5. Cookies
+
+Las cookies son pequeños archivos de texto enviados desde un servidor y almacenados en el navegador del cliente. Se utilizan para realizar un seguimiento de la información del usuario y mantener el estado de la sesión.
+
+Más información: https://developer.mozilla.org/es/docs/Web/HTTP/Cookies
+
+### 6. Seguridad
+
+HTTP no es un protocolo seguro por sí mismo. Sin embargo, se puede utilizar en conjunto con HTTPS (HTTP seguro) para garantizar una comunicación segura mediante el uso de encriptación SSL/TLS.
+
+Más información: 
+- https://developer.mozilla.org/es/docs/Web/HTTP/Overview#seguridad
+- https://es.ryte.com/wiki/HTTPS
+- https://www.cloudflare.com/es-es/learning/ssl/what-is-https/
+
+### 7. Estado sin conexión
+
+HTTP es un protocolo sin estado, lo que significa que cada solicitud es independiente y no mantiene información sobre solicitudes anteriores. Para mantener el estado, se pueden utilizar técnicas como cookies o tokens.
+
+Más información: 
+- https://stackoverflow.com/questions/13200152/why-is-it-said-that-http-is-a-stateless-protocol
+- https://www.oreilly.com/library/view/hands-on-full-stack-web/9781788622882/46146c7a-c43c-4218-acf1-60a8b493f04e.xhtml
+
+### 8. RESTful API
+
+HTTP se utiliza ampliamente en el desarrollo de API RESTful (Representational State Transfer). Estas API utilizan los verbos y los recursos de HTTP para proporcionar una interfaz de programación web.
+
+Más información:
+- https://aws.amazon.com/es/what-is/restful-api/
+- https://www.youtube.com/watch?v=JD6VNRdGl98
+
+
 ## Flujo de proceso de una petición HTTP en una API REST
 ![](images/api-rest-flow.png)
 
@@ -291,3 +375,56 @@ Es importante tener en cuenta que la estructura y organización exacta de la apl
 12. **El servidor envía la respuesta:** El servidor envía la respuesta HTTP generada por el controlador al cliente que realizó la solicitud.
 13. **La respuesta llega al cliente:** El cliente, que es la interfaz de usuario en el navegador, recibe la respuesta HTTP del servidor y con base en la respuesta actualiza la interfaz para mostrar los datos solicitados o los mensajes de éxito o error.
 14. **El usuario ve en le interfaz el resultado de la petición:** Finalmente, el usuario ve el resultado de la petición en la interfaz de usuario. Esto puede incluir la visualización de los clientes existentes, la confirmación de una operación exitosa, mensajes de error en caso de problemas, o cualquier otra indicación relacionada con la operación CRUD realizada.
+
+## Angular
+
+Documentación oficial: https://angular.io/docs
+Guia de uso oficial: https://docs.angular.lat/cli
+
+Angular es un framework de desarrollo de aplicaciones web creado por Google. A continuación se presentan sus principales características:
+
+1. **Arquitectura basada en componentes:** Angular utiliza una arquitectura basada en componentes, lo que significa que la aplicación se estructura en componentes reutilizables y autocontenidos. Cada componente tiene su propia lógica, plantilla y estilos asociados.
+
+2. **TypeScript:** Angular se basa en TypeScript, un superset de JavaScript que agrega características como tipos estáticos, decoradores y soporte para ECMAScript 6 y superiores. TypeScript ayuda a detectar errores durante la fase de desarrollo y mejora la productividad del desarrollo.
+
+3. **Enlace de datos bidireccional:** Angular ofrece enlace de datos bidireccional, lo que significa que los cambios realizados en la interfaz de usuario se reflejan automáticamente en el modelo de datos y viceversa. Esto simplifica la sincronización de datos entre los componentes y la interfaz de usuario.
+
+4. **Directivas:** Angular proporciona un sistema de directivas poderoso que permite extender y modificar el comportamiento de los elementos HTML. Las directivas pueden usarse para agregar lógica personalizada, manipular el DOM, aplicar estilos dinámicos y mucho más.
+
+5. **Inyección de dependencias:** Angular cuenta con un sistema de inyección de dependencias integrado que facilita la gestión de las dependencias de los componentes. Esto promueve la modularidad y la reutilización de código al permitir la fácil sustitución de dependencias y la creación de componentes independientes y bien encapsulados.
+
+6. **Enrutamiento:** Angular proporciona un enrutador incorporado que permite crear aplicaciones de una sola página (Single-Page Applications, SPA) con múltiples vistas. El enrutador permite la navegación entre diferentes componentes y la carga dinámica de contenido según las rutas especificadas.
+
+7. **Pruebas unitarias y E2E:** Angular incluye herramientas y bibliotecas de prueba para realizar pruebas unitarias y de extremo a extremo (End-to-End, E2E) en la aplicación. Esto facilita la detección temprana de errores y garantiza la calidad del código.
+
+8. **Optimización de rendimiento:** Angular ofrece diversas técnicas de optimización de rendimiento, como la detección de cambios y la compilación just-in-time (JIT) o ahead-of-time (AOT). Estas técnicas mejoran el rendimiento y la velocidad de carga de la aplicación.
+
+9. **Soporte activo y comunidad:** Angular cuenta con un equipo de desarrollo activo y una gran comunidad de desarrolladores. Esto asegura que el framework esté en constante evolución, se mantenga actualizado y se brinde soporte a través de documentación, tutoriales y recursos en línea.
+
+### Guía de uso de Angular CLI
+
+#### Principales comandos:
+- Verifica versión de Node: node -v
+- Verifica versión de npm: npm -v
+- Instala el CLI de Angular: npm i -g @angular/cli
+- Verifica tu instalación: ng version
+- Crea tu primer proyecto: ng new [project name]
+- Cambia a la carpeta del proyecto: cd [project name]
+- Ejecuta el servidor de desarrollo: ng serve //Dentro de la carpeta de tu proyecto.
+- ng serve -o // Abre el proyecto automáticamente en el navegador
+- ng serve --port=[port number] // Especificar el puerto a abrir el servidor
+- ng generate component [component name] // Genera un componente
+
+
+#### Estructura de carpetas:
+src: Core de la aplicación
+browserlistrc: Especificación de los navegadores soportados
+editorconfig: Configuración trabajo en equipo. Se debe tener la extención editorconfig.
+tsconfig: configuración de typescript.
+angular.json: Configuración de ambientes.
+karma.json: correr pruebas unitarias.
+
+
+#### Recomendaciones:
+1. Instalar Angular language service como extensión de VSCode.
+2. Implementar el archivo .nvmrc para especificar la versión en la que se está trabajando.
