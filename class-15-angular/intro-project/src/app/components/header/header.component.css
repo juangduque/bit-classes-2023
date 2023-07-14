@@ -1,8 +1,13 @@
 nav {
-  height: 200px;
+  height: 80px;
   background-color: red;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.burguerMenu-container img{
+  height: 30px;
+  width: 30px;
 }
