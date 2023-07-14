@@ -1,13 +1,54 @@
 nav {
   height: 80px;
-  background-color: red;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
+.burguerMenu-container {
+  margin-left: 50px;
+}
+
 .burguerMenu-container img{
   height: 30px;
   width: 30px;
+  padding-top: 16px;
+}
+
+.youtubeLogo-container {
+  margin-left: 30px;
+}
+
+.left-side {
+  display: flex;
+}
+
+.central-side{
+  display: flex;
+  align-items: center;
+}
+
+.central-side input {
+  height: 30px;
+}
+
+.searchButton-container img{
+  width: 30px;
+  height: 30px;
+}
+
+.microphoneButton-container img {
+  width: 30px;
+  height: 30px;
+}
+
+.right-side{
+  display: flex;
+  margin-right: 40px;
+}
+
+.right-side button img {
+  width: 30px;
+  height: 30px;
 }
