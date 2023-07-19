@@ -1,0 +1,50 @@
+<h1>String interpolation: es para traer datos del archivo .ts, por medio de su operador que son dos llaves. A continuación algo de su uso:</h1>
+
+<h2>{{ name }}</h2>
+<h2>Hola {{ name }}</h2>
+<p>{{ age + 3 }}</p>
+
+<h3>Hello my name is {{ person.name }} {{ person.lastname}}</h3>
+<h3>Fruta: {{ fruits[0] }}</h3>
+
+<hr>
+
+<h1>Data binding: Sirve para controlar los valores de las propiedades. El valor de las propiedades de los elementos html se traen desde el archivo .ts</h1>
+<input [type]="type" [disabled]="disabled" value="click me">
+<img [src]="imgUrl" alt="">
+
+<hr>
+
+<h1>Event binding: Sirve para controlar los eventos de un elemento html por medio del operador parentesis sobre el evento en mención. Se relaciona a un método que viene desde el archivo .ts</h1>
+
+<button (click)="buttonClicked()">Hola mundo por consola</button>
+<button (click)="increaseAge()">Incrementar la edad</button>
+<h2 >La edad es: {{ age }}</h2>
+
+<button [disabled]="disabled">Submit</button>
+<button (click)="disableSubmitButton()">Deshabilitar</button>
+
+<hr>
+
+<h1>ngModel</h1>
+
+<input type="text" [(ngModel)]="variableModificable">
+<h3>{{ variableModificable }}</h3>
+
+<h3>Formulario:</h3>
+<form action="">
+  <div>
+    <label for="">Nombre:</label>
+    <input type="text" [(ngModel)]="dataPerson.name" name="name">
+  </div>
+  <div>
+    <label for="">Apellido:</label>
+    <input type="text" [(ngModel)]="dataPerson.lastName" name="lastName">
+  </div>
+  <div>
+    <label for="">Teléfono:</label>
+    <input type="text" [(ngModel)]="dataPerson.phone" name="phone">
+  </div>
+</form>
+
+<button (click)="showDataPerson()">Submit</button>
