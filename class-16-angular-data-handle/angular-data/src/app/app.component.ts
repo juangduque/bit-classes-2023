@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; // Se importa el decorador de angular que extiende el comportamiento propio de un componente de angular.
 
+// Se crea un decorador para el componente, el cual recibe un objeto con las propiedades del componente: selector, templateUrl, styleUrls.
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-root', // Se define el selector del componente, el cual se utiliza para llamar al componente en el html.
+  templateUrl: './app.component.html', // Se define la ruta del archivo html que contiene el código del componente.
+  styleUrls: ['./app.component.css'] // Se define la ruta del archivo css que contiene los estilos del componente.
 })
+
+// Se crea la clase del componente, la cual se exporta para que pueda ser utilizada en otros archivos.
 export class AppComponent {
   name: string = "juan";
   age: number = 20;
