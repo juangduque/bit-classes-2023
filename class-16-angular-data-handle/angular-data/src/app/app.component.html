@@ -9,7 +9,7 @@
 
 <hr>
 
-<h1>Data binding: Sirve para controlar los valores de las propiedades. El valor de las propiedades de los elementos html se traen desde el archivo .ts</h1>
+<h1>Data/Property binding: Sirve para controlar los valores de las propiedades. El valor de las propiedades de los elementos html se traen desde el archivo .ts</h1>
 <input [type]="type" [disabled]="disabled" value="click me">
 <img [src]="imgUrl" alt="">
 
@@ -48,3 +48,40 @@
 </form>
 
 <button (click)="showDataPerson()">Submit</button>
+
+<hr>
+<h1>Directivas</h1>
+
+<h2>Condicional</h2>
+
+<!-- La estructura de control *ngIf es una directiva estructural que nos permite mostrar u ocultar elementos del DOM en función de una expresión booleana. -->
+<h1 *ngIf="age > 20; else myBlock">Hola me llamo Juan</h1>
+<ng-template #myBlock>
+  <h3>Loading...</h3>
+</ng-template>
+
+<h2>Bucles</h2>
+
+<!-- La directiva *ngFor nos permite iterar sobre una colección de datos y renderizar un elemento por cada uno de ellos. -->
+<div *ngFor="let product of products" class="product-card">
+  <h4>{{ product.name }}</h4>
+  <img [src]="product.image" alt="">
+  <h5>{{ product.price }}</h5>
+  <p>{{ product.description }}</p>
+</div>
+
+<h2>Switch</h2>
+
+<!-- La directiva *ngSwitch nos permite renderizar un elemento en función de una expresión. -->
+<div [ngSwitch]="dataPerson.name">
+  <p *ngSwitchCase="'nicolas'">
+    La persona es nicolas
+  </p>
+  <p *ngSwitchCase="'julian'">
+    La persona es Julian
+  </p>
+  <p *ngSwitchCase="'camilo'">
+    La persona es Camilo
+  </p>
+  <p *ngSwitchDefault>No hace match</p>
+</div>
