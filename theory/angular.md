@@ -167,3 +167,184 @@ import { FormsModule } from '@angular/forms';
 
 LIST OF USEFUL EVENTS IN ANGULAR: https://www.eduforbetterment.com/lists-of-useful-events-types-for-event-binding-in-angular/
 NG TEMPLATES: https://profile.es/blog/angular-templates-las-directivas-ng-template-ng-container-y-ngtemplateoutlet/
+
+## Ciclo de vida del componente angular
+Los componentes en angular tienen un ciclo de vida que consta de varias etapas, cada una con sus correspondientes 'hooks' de ciclo de vida. Estos 'hooks' le permiten realizar acciones en momentos específicos durante la existencia de un componente. Comprender el ciclo de vida de los componentes es crucial para administrar la inicialización, las actualizaciones y la limpieza de los componentes de manera efectiva.
+![](./images/angular-life-cycle.png)
+
+#### Constructor
+El constructor es el primer hook del ciclo de vida que se ejecuta cuando se crea un componente. Se utiliza para inicializar propiedades de clase y se llama solo una vez durante la vida útil del componente.
+
+#### ngOnInit
+El hook ngOnInit se llama después de que el componente se haya inicializado y sus propiedades de entrada se hayan vinculado. Es un buen lugar para realizar tareas de configuración inicial que dependen de las entradas de los componentes.
+
+#### ngOnChanges
+El enlace ngOnChanges se activa cada vez que cambian las propiedades de entrada del componente. Proporciona información sobre los valores anteriores y actuales de las propiedades de entrada, lo que le permite reaccionar a los cambios.
+
+#### ngAfterViewInit
+Se llama al hook ngAfterViewInit después de que se hayan inicializado la vista del componente y las vistas secundarias. A menudo se usa para realizar tareas que necesitan acceso a los elementos DOM.
+
+#### ngAfterViewChecked
+El enlace ngAfterViewChecked se ejecuta después de que se hayan verificado los cambios en la vista del componente y las vistas secundarias. Es útil para realizar tareas que necesitan interactuar con el DOM después de cada ciclo de detección de cambios.
+
+#### ngAfterContentInit
+El hook ngAfterContentInit se llama después de que se haya producido la proyección de contenido (por ejemplo, ng-content) en el componente. Es un lugar propicio para realizar acciones en base a los contenidos proyectados.
+
+#### ngAfterContentChecked
+Se llama al hook ngAfterContentChecked después de que se haya verificado la proyección de contenido para ver si hay cambios. Es útil para realizar tareas que necesitan interactuar con el contenido proyectado después de cada ciclo de detección de cambios.
+
+#### ngOnDestroy
+El hook ngOnDestroy se ejecuta justo antes de que se destruya un componente. Le permite liberar recursos, darse de baja de observables y realizar tareas de limpieza para evitar pérdidas de memoria.
+
+### Casos de uso más comunes
+##### Constructor:
+- Inicializar variables miembro de la clase.
+- Configurar valores iniciales para propiedades.
+- Realizar tareas de configuración antes de que se cree la vista.
+##### ngOnInit:
+- Realizar llamadas a servicios para obtener datos iniciales.
+- Configurar observables o timers para actualizaciones periódicas.
+- Realizar tareas que dependen de los valores iniciales de las propiedades de entrada.
+- Suscribirse a eventos para escuchar cambios en el componente.
+##### ngOnChanges:
+- Realizar acciones basadas en cambios en las propiedades de entrada.
+- Actualizar el estado del componente en respuesta a cambios en las propiedades de entrada.
+- Realizar tareas adicionales cuando se reciban nuevos datos a través de las propiedades de entrada.
+##### ngOnDestroy:
+- Liberar recursos, como cancelar suscripciones a observables.
+- Cancelar timers o eventos activos para evitar fugas de memoria.
+- Realizar tareas de limpieza antes de que el componente se destruya.
+- Guardar datos o estado relevante antes de que el componente se elimine.
+
+##### Más información sobre el ciclo de vida de los componentes: 
+- https://medium.com/angular-chile/angular-componentes-y-sus-ciclos-de-vida-aa639e13a688
+- https://www.youtube.com/watch?v=8lHdqC1GDGs
+- https://www.youtube.com/watch?v=Q2pSDeMr5zQ
+
+## Angular routing
+En Angular, el enrutamiento es una parte esencial de la creación de aplicaciones de una sola página (Single Page Applications - SPAs). Permite a los desarrolladores definir cómo se debe navegar entre diferentes vistas o componentes en función de la URL actual. Angular Routing facilita la organización y la navegación dentro de la aplicación, brindando una experiencia fluida al usuario.
+
+### Comando del CLI para generar un módulo de enrutamiento
+Corre el siguiente comando en la terminal para generar un módulo de enrutamiento en tu aplicación Angular:
+```
+ng generate module app-routing
+```
+Esto creará un nuevo módulo llamado app-routing.module.ts en la carpeta src/app. Este módulo contendrá la configuración de enrutamiento de la aplicación.
+
+### Configuración manual del enrutamiento
+Para habilitar el enrutamiento en una aplicación Angular, primero debemos configurar las rutas que deseamos utilizar. Esto se puede hacer en el módulo principal de la aplicación, generalmente llamado "AppModule", o en módulos específicos para secciones separadas.
+
+A continuación, se muestra un ejemplo de cómo configurar algunas rutas básicas en el archivo app-routing.module.ts:
+
+```
+// app-routing.module.ts
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { HomeComponent } from './home.component';
+import { AboutComponent } from './about.component';
+import { ContactComponent } from './contact.component';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+En este ejemplo, hemos definido tres rutas principales: la ruta raíz '/' apunta al componente HomeComponent, la ruta '/about' apunta al componente AboutComponent y la ruta '/contact' apunta al componente ContactComponent.
+
+### Navegación en el template (html)
+Una vez que las rutas están configuradas, podemos utilizar el enrutador de Angular para navegar entre las diferentes vistas en el template de nuestros componentes. Para hacerlo, utilizamos la directiva routerLink en lugar del atributo href convencional para los enlaces.
+
+A continuación, se muestra un ejemplo de cómo utilizar routerLink para navegar a las vistas definidas anteriormente:
+
+```
+<!-- app.component.html -->
+
+<h1>Aplicación de Ejemplo</h1>
+
+<nav>
+  <a routerLink="/">Home</a>
+  <a routerLink="/about">Acerca de</a>
+  <a routerLink="/contact">Contacto</a>
+</nav>
+
+<router-outlet></router-outlet>
+```
+En este ejemplo, hemos creado un menú de navegación con tres enlaces que corresponden a las rutas definidas anteriormente. El routerLink se vincula a las rutas y permite que Angular gestione la navegación sin tener que recargar completamente la página.
+
+### Navegación programática
+Además de la navegación a través de enlaces en el template, también podemos realizar navegación programática utilizando el servicio Router proporcionado por Angular.
+
+A continuación, se muestra un ejemplo de cómo realizar navegación programática en respuesta a una acción del usuario:
+
+```
+// app.component.ts
+
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+
+  constructor(private router: Router) {}
+
+  redirectToAboutPage() {
+    this.router.navigate(['/about']);
+  }
+}
+```
+En este ejemplo, hemos importado el servicio Router y lo hemos inyectado en el componente. Luego, en el método redirectToAboutPage(), utilizamos el método navigate() del servicio Router para navegar al componente AboutComponent.
+
+### Recibir parámetros en la ruta
+En muchas aplicaciones, es necesario pasar parámetros a una ruta, como un identificador único para recuperar datos específicos. En Angular, podemos hacer esto agregando parámetros a la ruta.
+
+A continuación, se muestra un ejemplo de cómo definir una ruta que acepte un parámetro:
+```
+// app-routing.module.ts
+
+const routes: Routes = [
+  { path: 'products/:id', component: ProductDetailComponent },
+];
+```
+En este ejemplo, hemos definido una ruta que incluye el segmento :id. Este segmento es un marcador de posición que se utilizará para pasar el valor del parámetro.
+
+### Leer parámetros de la ruta
+Para leer los parámetros pasados en la URL, podemos utilizar el servicio ActivatedRoute proporcionado por Angular.
+
+A continuación, se muestra un ejemplo de cómo leer el parámetro id de la ruta en un componente llamado ProductDetailComponent que como su nombre lo sugiere, su finalidad es mostrar los detalles de un producto especificado por el id de la ruta:
+
+```
+// product-detail.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.css']
+})
+export class ProductDetailComponent implements OnInit {
+
+  productId: number;
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.productId = +this.route.snapshot.paramMap.get('id');
+  }
+}
+```
+En este ejemplo, hemos importado el servicio ActivatedRoute y lo hemos inyectado en el componente. Luego, en el método ngOnInit(), utilizamos this.route.snapshot.paramMap.get('id') para leer el valor del parámetro id.
