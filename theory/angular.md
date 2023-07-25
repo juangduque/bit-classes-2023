@@ -171,6 +171,8 @@ NG TEMPLATES: https://profile.es/blog/angular-templates-las-directivas-ng-templa
 ## Ciclo de vida del componente angular
 Los componentes en angular tienen un ciclo de vida que consta de varias etapas, cada una con sus correspondientes 'hooks' de ciclo de vida. Estos 'hooks' le permiten realizar acciones en momentos específicos durante la existencia de un componente. Comprender el ciclo de vida de los componentes es crucial para administrar la inicialización, las actualizaciones y la limpieza de los componentes de manera efectiva.
 ![](./images/angular-life-cycle.png)
+Orden de ejecución de los hooks:
+![](images/angular2.png)
 
 #### Constructor
 El constructor es el primer hook del ciclo de vida que se ejecuta cuando se crea un componente. Se utiliza para inicializar propiedades de clase y se llama solo una vez durante la vida útil del componente.

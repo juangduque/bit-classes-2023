@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./parent-component.component.css']
 })
 export class ParentComponentComponent {
-  rootMessage: string = "Hola mundo";
+  rootMessage: string = "";
+
+  showChild: boolean = false;
+
+  handleOnShowChild() {
+    this.showChild = !this.showChild;
+  }
 }

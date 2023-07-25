@@ -1,4 +1,7 @@
 <div>
   <input type="text" [(ngModel)]="rootMessage">
-  <app-child-component [message]="rootMessage"></app-child-component>
+  <button (click)="handleOnShowChild()">Mostrar/Esconde componente</button>
+  <div *ngIf="showChild">
+    <app-child-component [message]="rootMessage"></app-child-component>
+  </div>
 </div>
