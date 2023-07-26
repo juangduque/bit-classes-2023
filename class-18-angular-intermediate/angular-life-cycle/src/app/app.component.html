@@ -1,2 +1,8 @@
 <!-- <app-parent-component></app-parent-component> -->
-<router-outlet></router-outlet>
+<nav>
+  <a routerLink="">Home</a> <!-- routerLink es una directiva de Angular que permite navegar entre rutas, se puede usar justo en el mismo component donde se usa router-outlet -->
+  <a routerLink="about-us">About us</a>
+  <a routerLink="login">Login</a>
+</nav>
+<router-outlet></router-outlet> <!-- Este es el lugar donde se renderiza el componente que corresponda a la ruta actual, la define Angular como componente al importar el modulo de enrutamiento dentro del módulo principal. Si no se hace esto, no se puede usar este router-outlet -->
+

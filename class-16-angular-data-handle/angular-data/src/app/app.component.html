@@ -1,34 +1,34 @@
 <h1>String interpolation: es para traer datos del archivo .ts, por medio de su operador que son dos llaves. A continuación algo de su uso:</h1>
 
-<h2>{{ name }}</h2>
+<h2>{{ name }}</h2> <!-- Se usa el mecanismo string interpolation para mostrar datos del archivo .ts del componente. Se puede usar en cualquier parte del html -->
 <h2>Hola {{ name }}</h2>
-<p>{{ age + 3 }}</p>
+<p>{{ age + 3 }}</p> <!-- Se pueden hacer operaciones matemáticas o en general ejecutar código js-->
 
-<h3>Hello my name is {{ person.name }} {{ person.lastname}}</h3>
-<h3>Fruta: {{ fruits[0] }}</h3>
+<h3>Hello my name is {{ person.name }} {{ person.lastname}}</h3> <!-- Se puede acceder a propiedades de objetos -->
+<h3>Fruta: {{ fruits[0] }}</h3> <!-- Se puede acceder a elementos de un array -->
 
-<hr>
+<hr> <!-- Se usa para separar -->
 
 <h1>Data/Property binding: Sirve para controlar los valores de las propiedades. El valor de las propiedades de los elementos html se traen desde el archivo .ts</h1>
-<input [type]="type" [disabled]="disabled" value="click me">
-<img [src]="imgUrl" alt="">
+<input [type]="type" [disabled]="disabled" value="click me"> <!-- Se usa el mecanismo de data binding para controlar el valor de las propiedades de los elementos html. Se puede usar en cualquier elemento html -->
+<img [src]="imgUrl" alt=""> <!-- En este caso se usa el data binding para asignar el valor de la propiedad src con la variable imgUrl definida en el archivo .ts del componente -->
 
 <hr>
 
 <h1>Event binding: Sirve para controlar los eventos de un elemento html por medio del operador parentesis sobre el evento en mención. Se relaciona a un método que viene desde el archivo .ts</h1>
 
-<button (click)="buttonClicked()">Hola mundo por consola</button>
-<button (click)="increaseAge()">Incrementar la edad</button>
-<h2 >La edad es: {{ age }}</h2>
+<button (click)="buttonClicked()">Hola mundo por consola</button> <!-- Se usa el mecanismo de event binding para controlar los eventos de los elementos html. Se puede usar en cualquier elemento html -->
+<button (click)="increaseAge()">Incrementar la edad</button> <!-- En este caso se usa el event binding para controlar el evento click del botón y ejecutar el método increaseAge() definido en el archivo .ts del componente -->
+<h2 >La edad es: {{ age }}</h2> <!-- Se usa el mecanismo string interpolation para mostrar la variable 'age' el cual se ve modificado en el botón anterior-->
 
-<button [disabled]="disabled">Submit</button>
-<button (click)="disableSubmitButton()">Deshabilitar</button>
+<button [disabled]="disabled">Submit</button> <!-- Se usa el mecanismo de data binding para controlar el valor de la propiedad disabled del botón.-->
+<button (click)="disableSubmitButton()">Deshabilitar</button> <!-- Se usa el mecanismo de event binding para controlar el evento click del botón y ejecutar el método disableSubmitButton() definido en el archivo .ts del componente -->
 
 <hr>
 
 <h1>ngModel</h1>
 
-<input type="text" [(ngModel)]="variableModificable">
+<input type="text" [(ngModel)]="variableModificable">  <!-- Se usa el mecanismo de ngModel para controlar el valor de la propiedad value del input. Se usa el mecanismo de two way data binding (escucha el evento y asigna el valor a la variable) para que el valor de la propiedad value del input se actualice en el archivo .ts del componente.  -->
 <h3>{{ variableModificable }}</h3>
 
 <h3>Formulario:</h3>

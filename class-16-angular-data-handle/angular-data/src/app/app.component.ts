@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'; // Se importa el decorador de angular que extiende el comportamiento propio de un componente de angular.
 
+// Se crea una interfaz para definir el tipo de dato del objeto producto.
 interface Product {
   id: string,
   name: string,
@@ -17,27 +18,30 @@ interface Product {
 
 // Se crea la clase del componente, la cual se exporta para que pueda ser utilizada en otros archivos.
 export class AppComponent {
-  name: string = "juan";
-  age: number = 20;
+  name: string = "juan"; // Se crea una variable de tipo string con el valor "juan".
+  age: number = 20; // Se crea una variable de tipo number con el valor 20.
+  // Se crea una variable de tipo objeto con dos propiedades: name y lastname.
   person = {
     name: "oscar",
     lastname: "garcia",
   }
 
-  fruits: string[] = ["apple", "kiwi", "banana"]
+  fruits: string[] = ["apple", "kiwi", "banana"] // Se crea una variable de tipo array con los valores "apple", "kiwi", "banana".
 
-  type: string = "date"
-  disabled: boolean = false;
-  imgUrl: string = "https://tse1.mm.bing.net/th?id=OIP.0e365QXKL-NORBeVdozttgHaHe&pid=Api&P=0&h=180";
+  type: string = "date" // Se crea una variable de tipo string con el valor "date".
+  disabled: boolean = false; // Se crea una variable de tipo boolean con el valor false.
+  imgUrl: string = "https://tse1.mm.bing.net/th?id=OIP.0e365QXKL-NORBeVdozttgHaHe&pid=Api&P=0&h=180"; // Se crea una variable de tipo string con la ruta de una imagen.
 
-  variableModificable: string = "valor";
+  variableModificable: string = "valor"; // Se crea una variable de tipo string con el valor "valor".
 
+  // Se crea una variable de tipo objeto con tres propiedades: name, lastName y phone.
   dataPerson = {
     name: "nicolas",
     lastName: "",
     phone: ""
   };
 
+  // Se crea un arreglo de objetos de tipo Product.
   products: Product[] = [
     {
       id: "1",
@@ -104,19 +108,23 @@ export class AppComponent {
 //     break;
 // }
 
+  // Se crea un método para mostrar un mensaje en la consola.
   buttonClicked(){
     console.log("Hola mundo");
   }
 
+  // Se crea un método para aumentar en 1 el valor de la variable age.
   increaseAge(){
     // this.age = this.age + 1;
-    this.age += 1;
+    this.age += 1; // Se incrementa en 1 el valor de la variable age.
   }
 
+  // Se crea un método para cambiar el valor de la variable disabled el cual es booleano.
   disableSubmitButton(){
-    this.disabled = !this.disabled;
+    this.disabled = !this.disabled; // Se asigna el valor contrario al valor actual de la variable disabled.
   }
 
+  // Se crea un método para mostrar el objeto dataPerson en la consola.
   showDataPerson(){
     console.log(this.dataPerson);
   }
