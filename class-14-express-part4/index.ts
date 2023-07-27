@@ -1,13 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import cors from 'cors';
+import cors from 'cors'; // Se importa el middleware cors para permitir el acceso a la api desde cualquier origen.
 
 import { routerApi } from './src/controllers/routes';
 
 const app = express(); // Esta es la creación de la instancia.
 const PORT = 3000; // Se declara una variable para el puerto. Es una buena práctica que sea una constante.
 
-app.use(cors());
+app.use(cors()); // Se usa el middleware cors para permitir el acceso a la api desde cualquier origen.
 
 app.use(express.json()); //Esto es un middleware. En este caso es necesario para poder usar el body que existe dentro de la petición http.
 

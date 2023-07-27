@@ -17,14 +17,14 @@ interface Customer {
   styleUrls: ['./view-customers.component.css']
 })
 export class ViewCustomersComponent implements OnInit {
-  customers: any = [];
+  customers: Customer[] = [];
 
   constructor(private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.customerService.getAllCustomers().subscribe(
       (data) => {
-        this.customers = data;
+        this.customers = data.result;
       },
       (error) => {
         console.log(error);
