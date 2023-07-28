@@ -1,18 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Customer} from './models/customer.model';
+
 interface ApiResponse {
   result: Customer[]
-}
-
-interface Customer {
-  id: string;
-  name: string;
-  cc: string;
-  email: string;
-  birthDate: string;
-  cel: string;
-  address: string;
 }
 
 @Injectable({
@@ -24,5 +16,9 @@ export class CustomerService {
 
   getAllCustomers() {
     return this.http.get<ApiResponse>('http://localhost:3000/customers');
+  }
+
+  postCustomer(body: Customer){
+    return this.http.post<string>('http://localhost:3000/customers', body);
   }
 }

@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../../customer.service';
 
-interface Customer {
-  id: string;
-  name: string;
-  cc: string;
-  email: string;
-  birthDate: string;
-  cel: string;
-  address: string;
-}
+import { Customer } from '../../models/customer.model';
 
 @Component({
   selector: 'app-view-customers',
@@ -18,16 +10,23 @@ interface Customer {
 })
 export class ViewCustomersComponent implements OnInit {
   customers: Customer[] = [];
+  isLoading: boolean = false;
+  isError: boolean = false;
+  errorMessage: string = "Ha ocurrido un error";
 
   constructor(private customerService: CustomerService) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.customerService.getAllCustomers().subscribe(
       (data) => {
         this.customers = data.result;
+        this.isLoading = false;
       },
       (error) => {
-        console.log(error);
+        this.isLoading = false;
+        this.isError = true;
+        this.errorMessage = "Ha ocurrido un error al tratar de leer los clientes"
       }
     )
   }

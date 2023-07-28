@@ -1,0 +1,39 @@
+<div class="card shadow border-0 rounded-4 mb-5" *ngFor="let customer of customers" >
+  <div class="card-body p-5">
+      <div class="row align-items-center gx-5">
+          <span class="mainRow-container">
+            <span class="name-container">
+              <p>{{ customer.name }}</p>
+            </span>
+            <div class="options-container">
+              <span class="deleteButton-container">
+                <img src="../../../assets/001-trash.png" alt="">
+              </span>
+              <span class="editButton-container">
+                <img src="../../../assets/002-edit.png" alt="">
+              </span>
+            </div>
+          </span>
+          <span class="row-container">
+            <label class="text-primary fw-bolder mb-2">cc:</label>
+            <p>{{ customer.cc }}</p>
+          </span>
+          <span class="row-container">
+            <label class="text-primary fw-bolder mb-2">email:</label>
+            <p>{{ customer.email }}</p>
+          </span>
+          <span class="row-container">
+            <label class="text-primary fw-bolder mb-2">Fecha de nacimiento:</label>
+            <p>{{ customer.birthDate }}</p>
+          </span>
+          <span class="row-container">
+            <label class="text-primary fw-bolder mb-2">Teléfono:</label>
+            <p>{{ customer.cel }}</p>
+          </span>
+          <span class="row-container">
+            <label class="text-primary fw-bolder mb-2">Dirección:</label>
+            <p>{{ customer.address }}</p>
+          </span>
+      </div>
+  </div>
+</div>
