@@ -6,6 +6,7 @@ import { LoginComponent } from '../views/login/login.component';
 import { CreateCustomerComponent } from '../views/create-customer/create-customer.component';
 import { ViewCustomersComponent } from '../views/view-customers/view-customers.component';
 import { HomeComponent } from '../views/home/home.component';
+import { EditCustomerComponent } from '../views/edit-customer/edit-customer.component';
 
 
 // El objeto routes es un arreglo de objetos que tienen la siguiente estructura: {path: 'ruta', component: ComponenteQueSeVaAMostrarEnLaRuta}. Sirve para definir las rutas de la aplicacion.
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'create-customer', component: CreateCustomerComponent },
   {path: 'view-customers', component: ViewCustomersComponent },
+  {path: 'edit-customer/:id', component: EditCustomerComponent },
 ]
 
 // El decorador @NgModule recibe un objeto con la siguiente estructura: {declarations: [], imports: [], exports: []}. Sirve para definir modulos.

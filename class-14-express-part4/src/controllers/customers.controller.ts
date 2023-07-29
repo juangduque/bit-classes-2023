@@ -46,7 +46,7 @@ router.get('/id/:id', async (req,res) => {
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
 
     const serviceLayerResponse = await getCustomerById(id); // Se llama a la función de la capa de servicios que se encarga específicamente de traer un cliente por su id (getCustomerById)
-    res.status(serviceLayerResponse.code).json(serviceLayerResponse.message);
+    res.status(serviceLayerResponse.code).json(serviceLayerResponse.result);
   }catch(error){
     const customError = error as CustomErrorFormat;
     console.log(customError.errorMessage);

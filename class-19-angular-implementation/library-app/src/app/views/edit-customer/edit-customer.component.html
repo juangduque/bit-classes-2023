@@ -1,0 +1,47 @@
+<section class="py-5">
+  <div class="container px-5">
+
+    <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+      <div class="text-center mb-5">
+        <h1 class="fw-bolder">Editar cliente</h1>
+        <p class="lead fw-normal text-muted mb-0">Introduce la información del nuevo cliente</p>
+      </div>
+
+      <div class="row gx-5 justify-content-center">
+        <div class="col-lg-8 col-xl-6">
+          <form id="contactForm" #form="ngForm" >
+            <div class="form-floating mb-3">
+              <input class="form-control" id="name" type="text" placeholder="Enter your name..." [(ngModel)]="customer.name" name="name"/>
+              <label for="name">Nombre</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="email" type="email" placeholder="name@example.com" [(ngModel)]="customer.cc" name="cc" />
+              <label for="email">N° de cédula</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="cc" type="email" placeholder="name@example.com" [(ngModel)]="customer.email" name="email"/>
+              <label for="cc">Correo</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="birthDate" type="text" placeholder="01/01/1999" [(ngModel)]="customer.birthDate" name="birthDate"/>
+              <label for="birthDate">Fecha de nacimiento</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" [(ngModel)]="customer.cel" name="cel" />
+              <label for="phone">Teléfono</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="address" type="text" placeholder="(123) 456-7890" [(ngModel)]="customer.address" name="address" />
+              <label for="address">Dirección</label>
+            </div>
+
+            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit" (click)="editCustomer()">Actualizar</button></div>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

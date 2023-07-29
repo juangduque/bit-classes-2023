@@ -14,6 +14,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { ErrorComponent } from './components/error/error.component';
 
 import { CustomerCardsComponent } from './views/view-customers/components/customer-cards/customer-cards.component';
+import { EditCustomerComponent } from './views/edit-customer/edit-customer.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CustomerCardsComponent } from './views/view-customers/components/custom
     HomeComponent,
     LoaderComponent,
     ErrorComponent,
-    CustomerCardsComponent
+    CustomerCardsComponent,
+    EditCustomerComponent
   ],
   imports: [
     BrowserModule,

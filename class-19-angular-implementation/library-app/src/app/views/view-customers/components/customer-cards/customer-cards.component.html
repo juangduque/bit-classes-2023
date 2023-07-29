@@ -6,12 +6,12 @@
               <p>{{ customer.name }}</p>
             </span>
             <div class="options-container">
-              <span class="deleteButton-container">
+              <button class="deleteButton-container" (click)="deleteCustomer(customer._id)">
                 <img src="../../../assets/001-trash.png" alt="">
-              </span>
-              <span class="editButton-container">
+              </button>
+              <button class="editButton-container" (click)="routeToEditCustomer(customer._id)">
                 <img src="../../../assets/002-edit.png" alt="">
-              </span>
+              </button>
             </div>
           </span>
           <span class="row-container">
