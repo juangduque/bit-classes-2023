@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { CustomerService } from '../../customer.service';
+import { CustomerService } from '../../customer.service'; // Se importa el servicio de customer
+import { Router } from '@angular/router'; // Se importa el router para redireccionar
 
-import { Customer } from "../../models/customer.model";
+import { Customer } from "../../models/customer.model"; // Se importa el modelo de customer o lo que es lo mismo, la interfaz.
 
-
-const INITIAL_CUSTOMER_DATA = {
+// Aqui se define los datos iniciales del objeto customer
+const INITIAL_CUSTOMER_DATA: Customer = {
   name: "",
   cc: "",
   email: "",
@@ -19,18 +19,20 @@ const INITIAL_CUSTOMER_DATA = {
   styleUrls: ['./create-customer.component.css']
 })
 export class CreateCustomerComponent {
-  customer: Customer = INITIAL_CUSTOMER_DATA;
+  customer: Customer = INITIAL_CUSTOMER_DATA; // Se asigna al objeto customer los datos iniciales.
 
-  constructor(private customerService: CustomerService){}
+  constructor(private customerService: CustomerService, private router: Router){} // Se crea una variable privada router de tipo Router para poder usar el modulo Router y poder navegar a otras páginas.
 
-  createCustomer(form: NgForm){
+  // El siguiente método se implementar el servicio de customer para crear un nuevo customer.
+  createCustomer(){
+    // Se llama al método postCustomer del servicio de customer y se le pasa como parámetro el objeto customer a crear.
     this.customerService.postCustomer(this.customer).subscribe(
       (data) => {
-        this.customer = INITIAL_CUSTOMER_DATA;
-        form.resetForm();
+        this.router.navigate(['/view-customers']); // Si la creación del customer es exitosa, se redirecciona a la página de view-customers.
+        console.log(data); // Se imprime en consola el resultado de la creación del customer.
       },
       (error) => {
-        console.log(error);
+        console.log(error); // Si hay error, se imprime en consola el error.
       }
     )
   }

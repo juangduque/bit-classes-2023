@@ -9,32 +9,39 @@
 
       <div class="row gx-5 justify-content-center">
         <div class="col-lg-8 col-xl-6">
-          <form id="contactForm" #form="ngForm" (submit)="createCustomer(form)">
+          <form id="contactForm" #form="ngForm" (submit)="createCustomer()"><!--  Al momento de hacer click en el botón "Crear" se ejecuta el método cretaCustomer() -->
             <div class="form-floating mb-3">
+              <!-- Se usa el ngModel para enlazar el valor del input con la propiedad name del objeto customer -->
               <input class="form-control" id="name" type="text" placeholder="Enter your name..." [(ngModel)]="customer.name" name="name"/>
               <label for="name">Nombre</label>
             </div>
             <div class="form-floating mb-3">
+              <!-- Se usa el ngModel para enlazar el valor del input con la propiedad cc del objeto customer -->
               <input class="form-control" id="email" type="email" placeholder="name@example.com" [(ngModel)]="customer.cc" name="cc" />
               <label for="email">N° de cédula</label>
             </div>
             <div class="form-floating mb-3">
+              <!-- Se usa el ngModel para enlazar el valor del input con la propiedad email del objeto customer -->
               <input class="form-control" id="cc" type="email" placeholder="name@example.com" [(ngModel)]="customer.email" name="email"/>
               <label for="cc">Correo</label>
             </div>
             <div class="form-floating mb-3">
+              <!-- Se usa el ngModel para enlazar el valor del input con la propiedad birthDate del objeto customer -->
               <input class="form-control" id="birthDate" type="text" placeholder="01/01/1999" [(ngModel)]="customer.birthDate" name="birthDate"/>
               <label for="birthDate">Fecha de nacimiento</label>
             </div>
             <div class="form-floating mb-3">
+              <!-- Se usa el ngModel para enlazar el valor del input con la propiedad cel del objeto customer -->
               <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" [(ngModel)]="customer.cel" name="cel" />
               <label for="phone">Teléfono</label>
             </div>
             <div class="form-floating mb-3">
+              <!-- Se usa el ngModel para enlazar el valor del input con la propiedad address del objeto customer -->
               <input class="form-control" id="address" type="text" placeholder="(123) 456-7890" [(ngModel)]="customer.address" name="address" />
               <label for="address">Dirección</label>
             </div>
 
+            <!-- Debido a que el botón es del tipo submit, se ejecuta el método createCustomer() al momento de hacer click en el botón por medio del evento submit del elemento form -->
             <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Crear</button></div>
           </form>
 

@@ -3,36 +3,36 @@
       <div class="row align-items-center gx-5">
           <span class="mainRow-container">
             <span class="name-container">
-              <p>{{ customer.name }}</p>
+              <p>{{ customer.name }}</p><!-- Se usa string interpolation para mostrar el valor de la variable customer.name -->
             </span>
             <div class="options-container">
-              <button class="deleteButton-container" (click)="deleteCustomer(customer._id)">
+              <button class="deleteButton-container" (click)="deleteCustomer(customer._id)"><!-- Si se hace click en el botón se ejecuta el método deleteCustomer() del componente view-customers.component.ts -->
                 <img src="../../../assets/001-trash.png" alt="">
               </button>
-              <button class="editButton-container" (click)="routeToEditCustomer(customer._id)">
+              <button class="editButton-container" (click)="routeToEditCustomer(customer._id)"><!-- Si se hace click en el botón se ejecuta el método routeToEditCustomer() del componente view-customers.component.ts -->
                 <img src="../../../assets/002-edit.png" alt="">
               </button>
             </div>
           </span>
           <span class="row-container">
             <label class="text-primary fw-bolder mb-2">cc:</label>
-            <p>{{ customer.cc }}</p>
+            <p>{{ customer.cc }}</p><!-- Se usa string interpolation para mostrar el valor de la variable customer.cc -->
           </span>
           <span class="row-container">
             <label class="text-primary fw-bolder mb-2">email:</label>
-            <p>{{ customer.email }}</p>
+            <p>{{ customer.email }}</p><!-- Se usa string interpolation para mostrar el valor de la variable customer.email -->
           </span>
           <span class="row-container">
             <label class="text-primary fw-bolder mb-2">Fecha de nacimiento:</label>
-            <p>{{ customer.birthDate }}</p>
+            <p>{{ customer.birthDate }}</p><!-- Se usa string interpolation para mostrar el valor de la variable customer.birthDate -->
           </span>
           <span class="row-container">
             <label class="text-primary fw-bolder mb-2">Teléfono:</label>
-            <p>{{ customer.cel }}</p>
+            <p>{{ customer.cel }}</p><!-- Se usa string interpolation para mostrar el valor de la variable customer.cel -->
           </span>
           <span class="row-container">
             <label class="text-primary fw-bolder mb-2">Dirección:</label>
-            <p>{{ customer.address }}</p>
+            <p>{{ customer.address }}</p><!-- Se usa string interpolation para mostrar el valor de la variable customer.address -->
           </span>
       </div>
   </div>

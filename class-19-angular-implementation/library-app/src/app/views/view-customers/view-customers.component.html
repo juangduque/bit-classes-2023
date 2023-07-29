@@ -1,9 +1,13 @@
-<div *ngIf="isLoading">
+<!-- Este componente es el encargado de mostrar la lista de clientes, para ello se apoya en el componente app-customer-card, el cual recibe como parámetro la lista de clientes. -->
+
+<!-- Se usa el componente app-loader para mostrar un loader en caso de que el valor de la variable isLoading es igual a true -->
+<div *ngIf="isLoading"><!-- Se usa la directiva ngIf para mostrar el componente app-loader en caso de que el valor de la variable isLoading es igual a true -->
   <app-loader></app-loader>
 </div>
 
-<div *ngIf="isError">
-  <app-error [errorMessage]="errorMessage" ></app-error>
+<!-- Se usa el componente app-error para mostrar un mensaje de error en caso de que el valor de la variable isError es igual a true, adicional se pasa el mensaje de error a mostrar por medio de la variable errorMessage -->
+<div *ngIf="isError"><!-- Se usa la directiva ngIf para mostrar el componente app-error en caso de que el valor de la variable isError es igual a true -->
+  <app-error [errorMessage]="errorMessage" ></app-error><!-- Se usa Data Binding para pasar el valor de la variable errorMessage al componente app-error -->
 </div>
 
 <main class="customers-container" *ngIf="!isLoading && !isError">
@@ -12,6 +16,7 @@
     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Clientes</span></h1>
   </div>
 
-  <app-customer-card [customers]="customers"></app-customer-card>
+  <!-- A continuación se muestra la lista de clientes registrados en la base de datos por medio del componente app-customer-card, el cual recibe como parámetro la lista de clientes. -->
+  <app-customer-card [customers]="customers"></app-customer-card><!-- Se usa Data Binding para pasar el valor de la variable customers al componente app-customer-card -->
 
 </main>
