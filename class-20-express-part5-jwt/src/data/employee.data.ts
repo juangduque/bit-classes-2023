@@ -20,6 +20,22 @@ export const readEmployeeById = (id: string) =>{
   });
 };
 
+export const readEmployeeByEmail = (email: string): Promise<Employee[]> => {
+  return new Promise( async (resolve, reject) => {
+    try {
+      const mongoResponse = await EmployeeSchema.find({ email: email }); // Usando mongoose se obtiene el cliente por su email.
+
+      if(mongoResponse === null){ // Si el cliente no existe, se devuelve un error 404.
+        reject(404); // Se devuelve el código de error.
+      }else{
+        resolve(mongoResponse); // Si el cliente existe, se devuelve el cliente. En caso de haber varios clientes con el mismo email, se devuelve un arreglo.
+      }
+    }catch(error){
+      reject(error); // En caso de error se devuelve el error.
+    }
+  });
+};
+
 export const createEmployee = (body: Employee) => {
   return new Promise(async (resolve, reject) => {
     try {

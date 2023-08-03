@@ -17,7 +17,12 @@
 - npx tsc [nombre del archivo] // Transpila código ts a js
 npx nodemon [nombre del archivo] // se ejecuta nodemon con el archivo especificado
 - npx nodemon -e ts --exec 'ts-node' index.ts // Nodemon esta pendiente de cambios en archivos con extensión .ts y ejecuta ts-nodemon en el archivo indicado, en este caso index.ts 
+- npm install dotenv // Instalar dotenv para variables de entorno desde un archivo .env
 - npm list -g --depth=0 // Lista los paquetes instalados de forma global.
+- npm install bcryptjs // Instalar bcryptjs
+- npm install @types/bcryptjs // Instalar los tipos de datos de bcryptjs
+- npm install jsonwebtoken // Instalar jsonwebtoken
+- npm install @types/jsonwebtoken // Instalar los tipos de datos de jsonwebtoken
 
 ### Angular:
 - Verifica versión de Node: node -v
