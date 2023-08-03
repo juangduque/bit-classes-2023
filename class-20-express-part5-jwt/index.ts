@@ -1,9 +1,11 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors'; // Se importa el middleware cors para permitir el acceso a la api desde cualquier origen.
+import dotenv from 'dotenv';
 
 import { routerApi } from './src/controllers/routes';
 
+dotenv.config();
 const app = express(); // Esta es la creación de la instancia.
 const PORT = 3000; // Se declara una variable para el puerto. Es una buena práctica que sea una constante.
 
@@ -12,7 +14,7 @@ app.use(cors()); // Se usa el middleware cors para permitir el acceso a la api d
 app.use(express.json()); //Esto es un middleware. En este caso es necesario para poder usar el body que existe dentro de la petición http.
 
 // Se establece la conexión a mongodb. Se usa el método connect de mongoose, pasándole la url de conexión.
-mongoose.connect('mongodb+srv://admin:123abc@cluster0.8ja1awy.mongodb.net/')
+mongoose.connect(process.env.MONGO_URL as string)
     .then(() =>{
         console.log("Conexión a mongo establecida"); // Si la conexión es exitosa, se imprime un mensaje en consola.
     })
