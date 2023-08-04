@@ -1,5 +1,5 @@
 import express from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import { getEmployeeById, getEmployeeByEmail, postEmployee } from '../services/employee.service';
@@ -54,18 +54,19 @@ router.post('/login', async (req, res) =>{
 
     // En la siguiente validación se verifica que el email del body de la petición sea igual al email del empleado de la BD y que la contraseña del body de la petición sea igual a la contraseña del empleado de la BD.
     if(email === (user as Employee).email && bcryptComparationResult){ // Si la validación es correcta, se procede a generar el token.
-      const token = jwt.sign({email: req.body , password: req.body}, secret, { expiresIn: '2m'}); // Se genera el token con el email y la contraseña del body de la petición como payload, el secreto y un parámetro que indica que el token expira en 30 días.
-      res.json({token}).status(200); // Se devuelve el token y el código de estado 200.
+      const payload = {email: (user as Employee).email}; // Se crea el payload con el email y la contraseña del body de la petición.
+      const token = jwt.sign(payload, secret, { expiresIn: '1m'}); // Se genera el token con el email y la contraseña del body de la petición como payload, el secreto y un parámetro que indica que el token expira en 30 días.
+      res.status(200).json({token}); // Se devuelve el token y el código de estado 200.
     }else{
-      res.json({message: "Usuario o contraseña incorrectos"}).status(403); // Si la validación no es correcta, se devuelve un mensaje de error y el código de estado 403 (Forbidden) que significa que el usuario no permisos.
+      res.status(403).json({message: "Usuario o contraseña incorrectos"}); // Si la validación no es correcta, se devuelve un mensaje de error y el código de estado 403 (Forbidden) que significa que el usuario no permisos.
     }
   }
 });
 
 router.post('/verify', (req, res) => {
   const token = req.body.token;
-  console.log("sirve");
-  jwt.verify(token, secret, (error: jwt.VerifyErrors | null, user: any ) => {
+
+  jwt.verify(token, secret, (error: jwt.VerifyErrors | null, user: string | jwt.JwtPayload | undefined ) => {
     if(error){
       res.json(error).status(403);
     }
