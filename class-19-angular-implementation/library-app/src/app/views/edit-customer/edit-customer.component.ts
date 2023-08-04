@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'; // Se importa el OnInit para poder implementar el método ngOnInit el cual se ejecuta cuando se carga el componente
 import { ActivatedRoute, Router } from '@angular/router'; // Se importa el router para redireccionar y ActivatedRoute para obtener el id de la url
 
-import { CustomerService } from '../../customer.service'; // Se importa el servicio de customer
+import { CustomerService } from '../../services/customer.service'; // Se importa el servicio de customer
 import { Customer } from '../../models/customer.model'; // Se importa el modelo de customer
 
 @Component({

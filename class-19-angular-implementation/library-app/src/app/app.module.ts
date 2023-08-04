@@ -18,6 +18,7 @@ import { ViewCustomersComponent } from './views/view-customers/view-customers.co
 import { HomeComponent } from './views/home/home.component'; // Se importa la vista home
 import { EditCustomerComponent } from './views/edit-customer/edit-customer.component'; // Se importa la vista edit-customer
 import { CustomerCardsComponent } from './views/view-customers/components/customer-cards/customer-cards.component'; // Se importa el componente customer-cards
+import { RegisterComponent } from './views/register/register.component'; // Se importa la vista register
 
 // A continuación se relacionan los componentes en la sección declarations y se relacionan los módulos en la sección imports
 
@@ -32,7 +33,8 @@ import { CustomerCardsComponent } from './views/view-customers/components/custom
     LoaderComponent,
     ErrorComponent,
     CustomerCardsComponent,
-    EditCustomerComponent
+    EditCustomerComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

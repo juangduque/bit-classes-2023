@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'; // Se importa el Input para poder recibir datos desde el componente padre
 import { Router } from '@angular/router'; // Se importa el router para redireccionar
 
-import { CustomerService } from '../../../../customer.service';
+import { CustomerService } from '../../../../services/customer.service';
 
 
 import { Customer } from '../../../../models/customer.model';

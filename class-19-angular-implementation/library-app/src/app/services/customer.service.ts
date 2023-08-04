@@ -5,7 +5,7 @@
 import { Injectable } from '@angular/core'; // Se importa el Injectable para poder inyectar el servicio en los componentes
 import { HttpClient } from '@angular/common/http'; // Se importa el HttpClient para poder realizar peticiones http
 
-import { Customer} from './models/customer.model'; // Se importa el modelo de customer
+import { Customer} from '../models/customer.model'; // Se importa el modelo de customer
 
 // Se drfine la interfaz ApiResponse para definir el tipo de respuesta que se obtendrá de la api para el método getAllCustomers.
 interface ApiResponse {
@@ -19,7 +19,7 @@ const API_URL = 'http://localhost:3000/customers'; // Se define la url base de l
 })
 export class CustomerService {
 
-  constructor(private http: HttpClient ) { } // Se inyecta el HttpClient para poder realizar peticiones http
+  constructor(private http: HttpClient) { } // Se inyecta el HttpClient para poder realizar peticiones http
 
   // El siguiente método se utiliza para obtener un customer por su id
   getCustomerById(id: string){ // Se define el método getCustomerById con el parámetro id de tipo string

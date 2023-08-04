@@ -7,6 +7,7 @@ import { CreateCustomerComponent } from '../views/create-customer/create-custome
 import { ViewCustomersComponent } from '../views/view-customers/view-customers.component';
 import { HomeComponent } from '../views/home/home.component';
 import { EditCustomerComponent } from '../views/edit-customer/edit-customer.component';
+import { RegisterComponent } from '../views/register/register.component';
 
 
 // El objeto routes es un arreglo de objetos que tienen la siguiente estructura: {path: 'ruta', component: ComponenteQueSeVaAMostrarEnLaRuta}. Sirve para definir las rutas de la aplicacion.
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'create-customer', component: CreateCustomerComponent }, // Esta es la ruta para crear un nuevo customer
   {path: 'view-customers', component: ViewCustomersComponent }, // Esta es la ruta para ver todos los customers
   {path: 'edit-customer/:id', component: EditCustomerComponent }, // Esta es la ruta para editar un customer, se le pasa el id del customer que se va a editar
+  {path: 'register', component: RegisterComponent } // Esta es la ruta para registrar un nuevo usuario
 ]
 
 // El decorador @NgModule recibe un objeto con la siguiente estructura: {declarations: [], imports: [], exports: []}. Sirve para definir modulos.

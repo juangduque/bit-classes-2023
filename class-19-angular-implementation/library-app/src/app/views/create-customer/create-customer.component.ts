@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CustomerService } from '../../customer.service'; // Se importa el servicio de customer
+import { CustomerService } from '../../services/customer.service'; // Se importa el servicio de customer
 import { Router } from '@angular/router'; // Se importa el router para redireccionar
 
 import { Customer } from "../../models/customer.model"; // Se importa el modelo de customer o lo que es lo mismo, la interfaz.
