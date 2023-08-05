@@ -6,6 +6,7 @@ Para este caso puntual, se encarga de gestionar las peticiones de tipo GET, POST
 Para esto, se usa el módulo "express" que se instaló previamente. Este módulo permite gestionar las rutas de la aplicación, y las peticiones que se hacen a cada ruta.
 */
 import express from 'express'; // Se importa el módulo express.
+import { authenticateToken } from '../middlewares/jwt-validation';
 
 import {
   getCustomers,
@@ -21,7 +22,7 @@ import { CustomErrorFormat } from '../types/api.types'; // Se importa la interfa
 const router = express.Router(); // El modulo router de express sirve para gestionar las rutas de la aplicación.
 
 // Esta petición de tipo get maneja un query para poner un límite a la cantidad de clientes que se devuelven.
-router.get('', async (req, res) => {
+router.get('', authenticateToken, async (req, res) => {
   try{
     const serviceLayerResponse = await getCustomers(); // Se llama a la función de la capa de servicios que se encarga específicamente de traer los usuarios (getCustomers)
 
@@ -34,7 +35,7 @@ router.get('', async (req, res) => {
 });
 
 // Esta petición de tipo get obtiene un cliente por su id.
-router.get('/id/:id', async (req,res) => {
+router.get('/id/:id', authenticateToken, async (req,res) => {
   try{
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
 
@@ -48,7 +49,7 @@ router.get('/id/:id', async (req,res) => {
 });
 
 // Esta petición de tipo get obtiene un cliente por su nombre.
-router.get('/name/:name', async (req,res) => {
+router.get('/name/:name', authenticateToken, async (req,res) => {
   try{
     const name = req.params.name; // Se obtiene el nombre del parámetro de la petición y se guarda en una variable.
 
@@ -62,7 +63,7 @@ router.get('/name/:name', async (req,res) => {
 });
 
 // Esta petición de tipo post crea un nuevo cliente.
-router.post('', async function(req, res) {
+router.post('', authenticateToken, async function(req, res) {
   try{
     const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
 
@@ -76,7 +77,7 @@ router.post('', async function(req, res) {
 });
 
 // Esta petición de tipo put actualiza un cliente, pasándole todo el recurso a editar por el body de la petición.
-router.put('/:id', async function (req, res) {
+router.put('/:id', authenticateToken, async function (req, res) {
   try{
     const id = req.params.id; // Se obtiene el id del parámetro de la petición y se guarda en una variable.
     const body = req.body; // Se obtiene el body de la petición y se guarda en una variable.
@@ -92,7 +93,7 @@ router.put('/:id', async function (req, res) {
 });
 
 // Esta petición de tipo delete elimina un cliente con base en el id pasado por parámetro.
-router.delete('/:id', async function (req, res) {
+router.delete('/:id', authenticateToken, async function (req, res) {
   try{
     const id = req.params.id;
 
