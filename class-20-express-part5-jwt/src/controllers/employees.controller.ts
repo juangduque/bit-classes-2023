@@ -24,7 +24,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-router.post('/register', authenticateToken, async function(req, res) {
+router.post('/register', async function(req, res) {
   try{
     const body = req.body;
 

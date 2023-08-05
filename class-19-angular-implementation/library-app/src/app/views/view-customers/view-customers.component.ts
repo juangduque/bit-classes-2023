@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'; // Se importa el OnInit para poder implementar el método ngOnInit el cual se ejecuta cuando se carga el componente
-  console.log("sirve");
 import { CustomerService } from '../../services/customer.service'; // Se importa el servicio de customer
 
 import { Customer } from '../../models/customer.model'; // Se importa el modelo de customer

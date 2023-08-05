@@ -1,5 +1,13 @@
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
+.errorMessage{
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.errorMessage p {
+  color: red;
+  font-size: 20px;
+}
 
 @font-face {
   font-family: Poppins-Regular;
