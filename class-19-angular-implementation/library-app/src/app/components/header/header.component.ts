@@ -10,6 +10,11 @@ export class HeaderComponent {
 
   constructor(private router: Router){} // Se crea una variable privada router de tipo Router para poder usar el modulo Router y poder navegar a otras páginas.
 
+  // Este metodo sirve para navegar a la ruta view-customers
+  navigateToLogin(){
+    this.router.navigate(['login']); // Se usa el metodo navigate del router para navegar a la ruta view-customers
+  }
+
   // Este metodo sirve para navegar a la ruta create-customer
   navigateToCreateCustomer(){
     this.router.navigate(['/create-customer']); // Se usa el metodo navigate del router para navegar a la ruta create-customer
